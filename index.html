@@ -9,750 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #003366; /* Dunkelblau */
-            --secondary: #7e97c3; /* Hellblau */
-            --accent: #ffd700; /* Goldgelb */
-            --light: #ffffff; /* Weiß */
-            --dark: #333333; /* Dunkelgrau */
-            --success: #66cc99; /* Mintgrün */
-            --text-gray: #555555; /* Mittelgrau */
-            --black: #000000; /* Schwarz */
-        }
-        
-        /* Cookie Banner Styles */
-        .cookie-banner {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: var(--dark);
-            color: var(--light);
-            padding: 1rem;
-            z-index: 1000;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .cookie-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-        
-        .cookie-text {
-            flex: 3;
-            min-width: 250px;
-        }
-        
-        .cookie-buttons {
-            flex: 1;
-            min-width: 250px;
-            display: flex;
-            gap: 0.5rem;
-            justify-content: flex-end;
-        }
-        
-        .cookie-btn {
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            font-family: 'Roboto', sans-serif;
-        }
-        
-        .accept-all {
-            background-color: var(--success);
-            color: var(--dark);
-        }
-        
-        .accept-necessary {
-            background-color: transparent;
-            color: var(--light);
-            border: 1px solid var(--light);
-        }
-        
-        .cookie-settings {
-            background-color: transparent;
-            color: var(--accent);
-            text-decoration: underline;
-            border: none;
-            padding: 0.5rem;
-            cursor: pointer;
-            font-family: 'Roboto', sans-serif;
-        }
-        
-        /* Cookie Modal Styles */
-        .cookie-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1001;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .cookie-modal-content {
-            background-color: var(--light);
-            color: var(--dark);
-            padding: 2rem;
-            border-radius: 10px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        
-        .cookie-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--dark);
-        }
-        
-        .cookie-type {
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 1rem;
-        }
-        
-        .cookie-type-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .toggle-container {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 24px;
-        }
-        
-        .toggle-checkbox {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        
-        .toggle-label {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 24px;
-        }
-        
-        .toggle-label:before {
-            position: absolute;
-            content: "";
-            height: 16px;
-            width: 16px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-        
-        .toggle-checkbox:checked + .toggle-label {
-            background-color: var(--success);
-        }
-        
-        .toggle-checkbox:checked + .toggle-label:before {
-            transform: translateX(26px);
-        }
-        
-        .necessary-toggle .toggle-checkbox:checked + .toggle-label {
-            background-color: var(--success);
-        }
-        
-        .necessary-toggle .toggle-checkbox:disabled + .toggle-label {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        .cookie-modal-footer {
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            color: var(--dark);
-            background-color: var(--light);
-        }
-        
-        header {
-            background-color: var(--primary);
-            color: white;
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 1.5rem;
-        }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/600') center/cover no-repeat;
-            color: white;
-            text-align: center;
-            padding: 5rem 2rem;
-        }
-        
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto 2rem;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 1.8rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        
-        .btn-primary {
-            background-color: var(--accent);
-            color: var(--black);
-        }
-        
-        .btn-primary:hover {
-            background-color: #e6c300;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-secondary {
-            background-color: transparent;
-            color: white;
-            border: 2px solid white;
-            margin-left: 1rem;
-        }
-        
-        .btn-secondary:hover {
-            background-color: white;
-            color: var(--dark);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        section {
-            padding: 5rem 0;
-        }
-        
-        section h2 {
-            text-align: center;
-            margin-bottom: 3rem;
-            color: var(--primary);
-        }
-        
-        .book-preview {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 2rem;
-        }
-        
-        .book-image {
-            flex: 1;
-            min-width: 300px;
-            text-align: center;
-        }
-        
-        .book-image img {
-            max-width: 100%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
-        }
-        
-        .book-details {
-            flex: 2;
-            min-width: 300px;
-        }
-        
-        .book-details h3 {
-            color: var(--secondary);
-            margin-bottom: 1rem;
-        }
-        
-        .price-tag {
-            display: inline-block;
-            background-color: var(--accent);
-            color: var(--black);
-            padding: 0.5rem 1rem;
-            border-radius: 30px;
-            font-weight: bold;
-            margin: 1rem 0;
-        }
-        
-        .features {
-            background-color: #f5f5f5;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .feature-card {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .feature-card h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .feature-card h3 span {
-            background-color: var(--primary);
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            margin-right: 0.5rem;
-        }
-        
-        .author {
-            text-align: center;
-        }
-        
-        .author-info {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .author-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 1rem;
-        }
-        
-        .reviews {
-            background-color: var(--primary);
-            color: white;
-        }
-        
-        .reviews h2 {
-            color: white;
-        }
-        
-        .reviews-slider-container {
-            position: relative;
-            max-width: 100%;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-        
-        .reviews-slider-wrapper {
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .reviews-slider {
-            display: flex;
-            transition: transform 0.5s ease;
-            margin: 0;
-            padding: 1rem 0;
-        }
-        
-        .review-card {
-            flex: 0 0 300px;
-            background-color: white;
-            color: var(--dark);
-            padding: 2rem;
-            border-radius: 10px;
-            margin-right: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .review-stars {
-            color: var(--accent);
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-        
-        .review-content {
-            font-style: italic;
-            margin-bottom: 1rem;
-            height: 120px;
-            overflow: hidden;
-        }
-        
-        .review-author {
-            font-weight: bold;
-            text-align: right;
-        }
-        
-        .slider-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            font-size: 18px;
-            cursor: pointer;
-            z-index: 10;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-        }
-        
-        .slider-arrow:hover {
-            opacity: 1;
-        }
-        
-        .prev-arrow {
-            left: 0;
-        }
-        
-        .next-arrow {
-            right: 0;
-        }
-        
-        .slider-dots {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        
-        .dot {
-            width: 12px;
-            height: 12px;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            margin: 0 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .dot.active {
-            background-color: white;
-        }
-        
-        .cta {
-            text-align: center;
-            padding: 5rem 0;
-            background-color: #f5f5f5;
-        }
-        
-        .cta h2 {
-            margin-bottom: 1rem;
-        }
-        
-        .cta p {
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-        
-        .faq {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .faq-item {
-            margin-bottom: 1.5rem;
-        }
-        
-        .faq-question {
-            background-color: var(--light);
-            padding: 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            border-left: 4px solid var(--primary);
-        }
-        
-        .faq-answer {
-            padding: 1rem;
-            background-color: white;
-            border-radius: 0 0 5px 5px;
-            margin-top: 0.5rem;
-        }
-        
-        .newsletter {
-            background-color: var(--dark);
-            color: white;
-            padding: 4rem 0;
-            text-align: center;
-        }
-        
-        .newsletter h3 {
-            margin-bottom: 1rem;
-        }
-        
-        .newsletter-form {
-            max-width: 500px;
-            margin: 0 auto;
-            display: flex;
-        }
-        
-        .newsletter-form input {
-            flex: 1;
-            padding: 0.8rem;
-            border: none;
-            border-radius: 5px 0 0 5px;
-            font-family: 'Roboto', sans-serif;
-        }
-        
-        .newsletter-form button {
-            background-color: var(--accent);
-            color: var(--black);
-            border: none;
-            padding: 0 1.5rem;
-            border-radius: 0 5px 5px 0;
-            cursor: pointer;
-            font-family: 'Roboto', sans-serif;
-        }
-        
-        footer {
-            background-color: var(--primary);
-            color: white;
-            padding: 3rem 0;
-            text-align: center;
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            margin: 1rem 0;
-        }
-        
-        .footer-links li {
-            margin: 0 1rem;
-        }
-        
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-        }
-        
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-        
-        .social-icons {
-            margin: 1rem 0;
-        }
-        
-        .social-icons a {
-            color: white;
-            margin: 0 0.5rem;
-            font-size: 1.5rem;
-        }
-        
-        .copyright {
-            font-size: 0.9rem;
-            margin-top: 2rem;
-        }
-        
-        .chapter-list {
-            max-width: 800px;
-            margin: 2rem auto;
-        }
-        
-        .chapter-item {
-            background-color: white;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        }
-        
-        .chapter-title {
-            font-weight: bold;
-            color: var(--primary);
-        }
-        
-        .bonus-banner {
-            background-color: var(--accent);
-            color: var(--black);
-            padding: 1rem;
-            border-radius: 5px;
-            margin: 2rem auto;
-            max-width: 800px;
-            text-align: center;
-        }
-        
-        .bonus-banner h3 {
-            margin-bottom: 0.5rem;
-        }
-        
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .testimonial-card {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .testimonial-card .quote {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            font-style: italic;
-        }
-        
-        .testimonial-card .author {
-            font-weight: bold;
-        }
-        
-        /* Mobile Responsiveness */
-        @media screen and (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .btn-secondary {
-                margin-left: 0;
-                margin-top: 1rem;
-                display: block;
-                width: 80%;
-                margin: 1rem auto 0;
-            }
-            
-            .btn-primary {
-                display: block;
-                width: 80%;
-                margin: 0 auto;
-            }
-            
-            .reviews-slider-container {
-                padding: 0 30px;
-            }
-            
-            .review-card {
-                flex: 0 0 260px;
-            }
-            
-            .review-content {
-                height: 150px;
-            }
-            
-            .newsletter-form {
-                flex-direction: column;
-            }
-            
-            .newsletter-form input {
-                border-radius: 5px;
-                margin-bottom: 1rem;
-            }
-            
-            .newsletter-form button {
-                border-radius: 5px;
-                padding: 0.8rem;
-            }
-        }
+        /* Bereits vorhandenes CSS */
     </style>
 </head>
 <body>
@@ -833,175 +90,278 @@
         </nav>
     </header>
     
-    <section class="hero">
-        <div class="container">
-            <h1>Optionen strategisch nutzen</h1>
-            <p>Clever investieren, Zusatzerträge generieren, Risiken absichern</p>
-            <a href="https://www.amazon.de/Optionen-strategisch-nutzen-investieren-Zusatzerträge/dp/3982686903/" class="btn btn-primary">Jetzt auf Amazon kaufen</a>
-            <a href="#book" class="btn btn-secondary">Mehr erfahren</a>
-        </div>
-    </section>
-    
-    <section id="book">
-        <div class="container">
-            <h2>Das Buch</h2>
-            <div class="book-preview">
-                <div class="book-image">
-                    <img src="/api/placeholder/400/600" alt="Buchcover: Optionen strategisch nutzen">
-                </div>
-                <div class="book-details">
-                    <h3>Erfolgreich investieren, Risiken absichern und Zusatzeinnahmen generieren – mit einem klaren, bewährten System</h3>
-                    <p>In diesem praktischen Handbuch erfahren Sie, wie Sie mit Optionen nicht nur Ihr Depot schützen, sondern auch eine zusätzliche Einnahmequelle generieren können. Basierend auf bewährten Strategien, erhalten Sie einen klaren Einstieg, der Ihnen hilft, typische Fehler zu vermeiden und sich von Beginn an auf Erfolgskurs zu bringen.</p>
-                    <div class="price-tag">24,00 €</div>
-                    <p>Veröffentlicht am 20. November 2024 | 218 Seiten | Taschenbuch</p>
-                    <a href="https://www.amazon.de/Optionen-strategisch-nutzen-investieren-Zusatzerträge/dp/3982686903/" class="btn btn-primary">Jetzt kaufen</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section id="features" class="features">
-        <div class="container">
-            <h2>Was Sie in diesem Buch erfahren</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h3><span>1</span> Solides Fundament</h3>
-                    <p>Erhalten Sie eine verständliche Einführung in die Grundlagen des Optionshandels – ergänzt durch zahlreiche praxisnahe Beispiele. Sie lernen, typische Fehler zu vermeiden und sich von Beginn an auf Erfolgskurs zu bringen.</p>
-                </div>
-                <div class="feature-card">
-                    <h3><span>2</span> Strategien für alle Märkte</h3>
-                    <p>Erfahren Sie, wie Sie mit Optionen auch in stagnierenden und fallenden Märkten profitieren können. Sie lernen, wie Sie Ihr Portfolio effektiv absichern – für ruhige Nächte, selbst in turbulenten Marktphasen.</p>
-                </div>
-                <div class="feature-card">
-                    <h3><span>3</span> Ihr individuelles System</h3>
-                    <p>Finden Sie heraus, wie Sie Ihren individuellen Handelsplan erstellen und langfristig erfolgreich umsetzen. Sie erfahren, wie Sie Ihre Chancen systematisch verbessern und aus Ihren Erfahrungen lernen.</p>
-                </div>
-                <div class="feature-card">
-                    <h3><span>4</span> Effektive Strategien</h3>
-                    <p>Fokussieren Sie sich auf bewährte und effektive Strategien mit klaren Anleitungen, wie Sie Chancen optimal nutzen und Risiken gezielt steuern können.</p>
-                </div>
-                <div class="feature-card">
-                    <h3><span>5</span> Zeitwert nutzen</h3>
-                    <p>Lernen Sie, wie Sie die Zeit für sich arbeiten lassen und vom Zeitwertverfall und günstigen Marktgelegenheiten profitieren können.</p>
-                </div>
-                <div class="feature-card">
-                    <h3><span>6</span> Risiko beherrschen</h3>
-                    <p>Verstehen Sie, wie Sie Risiken professionell managen und ein robustes System aufbauen, das langfristig funktioniert und Ihnen hilft, typische Fallen zu vermeiden.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section id="toc">
-        <div class="container">
-            <h2>Inhaltsübersicht</h2>
-            <div class="chapter-list">
-                <div class="chapter-item">
-                    <div class="chapter-title">Kapitel 1: Grundlagen des Optionshandels</div>
-                    <p>Einstieg in die Begriffe und Konzepte, Basiswissen zur Preisbildung, Volatilität verstehen und Zeitwert nutzen.</p>
-                </div>
-                <div class="chapter-item">
-                    <div class="chapter-title">Kapitel 2: Bewährte Strategien mit hoher Erfolgschance</div>
-                    <p>Kernstrategien für Einsteiger, weiterführende Strategien, langfristige Optionen und Ansätze erfolgreicher Investoren.</p>
-                </div>
-                <div class="chapter-item">
-                    <div class="chapter-title">Kapitel 3: Systematisch Erfolgschancen steigern</div>
-                    <p>Marktindikatoren intelligent nutzen, geeignete Basiswerte finden und Backtesting von Strategien.</p>
-                </div>
-                <div class="chapter-item">
-                    <div class="chapter-title">Kapitel 4: Risiken professionell managen</div>
-                    <p>Marginhandel verstehen, Delta, Gamma und Co. zur Risikoanalyse nutzen, Money-Management und Orders clever platzieren.</p>
-                </div>
-                <div class="chapter-item">
-                    <div class="chapter-title">Kapitel 5: Fallen vermeiden, System aufbauen</div>
-                    <p>Typische Fehler kennen, positive Gewohnheiten entwickeln, Handelsplan erstellen und ein Trading-Journal führen.</p>
-                </div>
-            </div>
-            <div class="bonus-banner">
-                <h3>BONUS: Exklusive Templates und Checklisten</h3>
-                <p>Nach Registrierung erhalten Sie Zugang zu wertvollem Bonusmaterial, das Ihnen hilft, die Inhalte des Buches noch effektiver umzusetzen.</p>
-                <a href="https://www.just-options.de" class="btn btn-primary">Bonus sichern</a>
-            </div>
-        </div>
-    </section>
-    
-    <section id="author" class="author">
-        <div class="container">
-            <h2>Über den Autor</h2>
-            <div class="author-info">
-                <img src="/api/placeholder/150/150" alt="Markus Lehleiter" class="author-image">
-                <h3>Markus Lehleiter</h3>
-                <p>Markus Lehleiter ist ein Investmentexperte mit über zwanzig Jahren Erfahrung in der Finanzbranche. Im Laufe seiner Karriere war er maßgeblich an der Entwicklung innovativer Fonds und Finanzprodukte beteiligt und leitete mehrere Projekte in den Bereichen Digitalisierung und Produktstrategie bei großen Fondsgesellschaften.</p>
-                <p>Als Wirtschaftsmathematiker, Chartered Financial Analyst und Financial Risk Manager verfügt er über tiefgehende Kenntnisse in der Analyse und Gestaltung komplexer Anlageprodukte. Zudem ist er seit vielen Jahren aktiv im Optionshandel tätig.</p>
-                <p>Mit seinem Buch teilt er diese umfassende Expertise und bietet Anlegern fundierte Einblicke in den strategischen Einsatz von Optionen in der Geldanlage.</p>
-            </div>
-        </div>
-    </section>
-    
-    <section id="reviews" class="reviews">
-        <div class="container">
-            <h2>Das sagen Leser</h2>
-            <div class="reviews-slider-container">
-                <button class="slider-arrow prev-arrow">&#10094;</button>
-                <div class="reviews-slider-wrapper">
-                    <div class="reviews-slider" id="reviewsSlider">
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <div class="review-content">"Dieses Buch überzeugt durch fundierte Erklärungen und praktische Beispiele, die Anlegern helfen, die Welt der Optionen systematisch zu meistern. Mir hat gut gefallen, dass das Buch sehr strukturiert aufgebaut ist."</div>
-                            <div class="review-author">- Casimir73</div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <div class="review-content">"Super verständlich für Einsteiger aufbereitet um mit dem Thema Optionen durchzustarten. Kann man als Lektüre empfehlen."</div>
-                            <div class="review-author">- Jonas M.</div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <div class="review-content">"Dieses Buch besticht durch Klarheit und Praxisnähe. Es erklärt Optionsstrategien verständlich und bietet praktische Beispiele. Der Fokus auf Risikomanagement ist top!"</div>
-                            <div class="review-author">- A. PAZ</div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <div class="review-content">"Habe mir das Buch gekauft, da ich mein Portfolio mit Optionen absichern wollte. Das Buch ist sehr systematisch aufgebaut, erklärt die Grundlagen sehr gut und hat mir geholfen, schnell das Wichtige zu erkennen."</div>
-                            <div class="review-author">- Conny</div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <div class="review-content">"Ein echtes Praxisbuch für clevere Optionsstrategien. Markus Lehleiter schafft eine verständliche und praxisnahe Einführung in den Optionshandel, die nicht nur die Theorie erklärt."</div>
-                            <div class="review-author">- Erl12</div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <div class="review-content">"Optionen einfach und kompakt erklärt. Dieses Buch erklärt die Welt der Optionen kurz, knapp und knackig; alles Wichtige ist erwähnt inkl. wertvoller Tools."</div>
-                            <div class="review-author">- Randolf Larissa</div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <div class="review-content">"Das Buch vermittelt umfassend praktische Ratschläge für den Optionshandel. Es beinhaltet viele praktische Ratschläge über die reinen Handelsstrategien hinaus."</div>
-                            <div class="review-author">- HGO</div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <div class="review-content">"Kompakt und Gut erklärt. Das Buch ist sehr kompakt und enthält alles wichtige, was man braucht um selbst loszulegen. Alles wird kompakt und gut verständlich erklärt, ist gut durchdacht."</div>
-                            <div class="review-author">- Almir A.</div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <div class="review-content">"Dieses Buch ist zeitlos geschrieben und beinhaltet alles, was ich mir zum Thema gewünscht habe. Toll wäre noch eine digitale Version, damit ich es mit Notebook LM besprechen kann."</div>
-                            <div class="review-author">- Peter K</div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <div class="review-content">"Super Empfehlung für Einsteiger - einfach erklärt, systematischer und seriöser Ansatz! Mir als Einsteiger im Optionshandel hat das Buch super gefallen. Es wird alles strukturiert erklärt."</div>
-                            <div class="review-author">- wilkinhoo</div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <div class="review-content">"Ein Muss für jede Investorin, die mit klar strukturierten Strategien und verständlicher Theorie den Einstieg in den Optionshandel sucht. Das Buch liest sich verständlich auch für diejenigen, die über kein oder wenig Fachwissen verfügen."</div>
-                            <div class="review-author">- lebed</div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <div class="review-content">"Neue Perspektiven und Möglichkeiten durch Optionen. Dieses Buch hat mir großartige Einblicke in Optionen gegeben und mir völlig neue Möglichkeiten aufgezeigt."</div>
-                            <div class="review-author">- Pouyan Rafiei Fard</div>
-                        </div>
+    <!-- Rest der HTML-Struktur bleibt unverändert -->
+
+    <!-- JavaScript für den Slider und den Cookie-Banner hinzufügen -->
+    <script>
+        // Cookie Banner und Modal JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cookie-Banner-Elemente abrufen
+            const cookieBanner = document.getElementById('cookieBanner');
+            const cookieModal = document.getElementById('cookieModal');
+            const acceptAllCookiesBtn = document.getElementById('acceptAllCookies');
+            const acceptNecessaryCookiesBtn = document.getElementById('acceptNecessaryCookies');
+            const cookieSettingsBtn = document.getElementById('cookieSettings');
+            const closeModalBtn = document.getElementById('closeModal');
+            const acceptAllModalBtn = document.getElementById('acceptAllModal');
+            const saveSettingsBtn = document.getElementById('saveSettings');
+            const analyticsCookiesCheckbox = document.getElementById('analyticsCookies');
+            const marketingCookiesCheckbox = document.getElementById('marketingCookies');
+            
+            // Cookie-Funktionen
+            function setCookie(name, value, days) {
+                let expires = '';
+                if (days) {
+                    const date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = '; expires=' + date.toUTCString();
+                }
+                document.cookie = name + '=' + (value || '') + expires + '; path=/';
+            }
+            
+            function getCookie(name) {
+                const nameEQ = name + '=';
+                const ca = document.cookie.split(';');
+                for(let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            }
+            
+            // Cookie-Banner-Status prüfen
+            if (!getCookie('cookieConsent')) {
+                cookieBanner.style.display = 'block';
+            } else {
+                cookieBanner.style.display = 'none';
+                
+                // Vorhandene Cookie-Einstellungen laden
+                if (getCookie('cookieConsentAnalytics') === 'true') {
+                    analyticsCookiesCheckbox.checked = true;
+                    // Hier könnte Analytics-Code initialisiert werden
+                }
+                
+                if (getCookie('cookieConsentMarketing') === 'true') {
+                    marketingCookiesCheckbox.checked = true;
+                    // Hier könnte Marketing-Code initialisiert werden
+                }
+            }
+            
+            // Event-Listener für Cookie-Banner-Buttons
+            acceptAllCookiesBtn.addEventListener('click', function() {
+                setCookie('cookieConsent', 'true', 365);
+                setCookie('cookieConsentAnalytics', 'true', 365);
+                setCookie('cookieConsentMarketing', 'true', 365);
+                cookieBanner.style.display = 'none';
+                
+                // Hier könnten Analytics und Marketing initialisiert werden
+            });
+            
+            acceptNecessaryCookiesBtn.addEventListener('click', function() {
+                setCookie('cookieConsent', 'true', 365);
+                setCookie('cookieConsentAnalytics', 'false', 365);
+                setCookie('cookieConsentMarketing', 'false', 365);
+                cookieBanner.style.display = 'none';
+            });
+            
+            cookieSettingsBtn.addEventListener('click', function() {
+                cookieModal.style.display = 'flex';
+            });
+            
+            // Event-Listener für Modal-Buttons
+            closeModalBtn.addEventListener('click', function() {
+                cookieModal.style.display = 'none';
+            });
+            
+            acceptAllModalBtn.addEventListener('click', function() {
+                setCookie('cookieConsent', 'true', 365);
+                setCookie('cookieConsentAnalytics', 'true', 365);
+                setCookie('cookieConsentMarketing', 'true', 365);
+                
+                analyticsCookiesCheckbox.checked = true;
+                marketingCookiesCheckbox.checked = true;
+                
+                cookieModal.style.display = 'none';
+                cookieBanner.style.display = 'none';
+                
+                // Hier könnten Analytics und Marketing initialisiert werden
+            });
+            
+            saveSettingsBtn.addEventListener('click', function() {
+                setCookie('cookieConsent', 'true', 365);
+                setCookie('cookieConsentAnalytics', analyticsCookiesCheckbox.checked, 365);
+                setCookie('cookieConsentMarketing', marketingCookiesCheckbox.checked, 365);
+                
+                cookieModal.style.display = 'none';
+                cookieBanner.style.display = 'none';
+                
+                // Hier könnten bedingt Analytics und Marketing initialisiert werden
+                if (analyticsCookiesCheckbox.checked) {
+                    // Analytics initialisieren
+                }
+                
+                if (marketingCookiesCheckbox.checked) {
+                    // Marketing initialisieren
+                }
+            });
+            
+            // Schließen des Modals beim Klick außerhalb
+            window.addEventListener('click', function(event) {
+                if (event.target === cookieModal) {
+                    cookieModal.style.display = 'none';
+                }
+            });
+            
+            // Slider-Funktionalität
+            const slider = document.getElementById('reviewsSlider');
+            const prevArrow = document.querySelector('.prev-arrow');
+            const nextArrow = document.querySelector('.next-arrow');
+            const sliderWrapper = document.querySelector('.reviews-slider-wrapper');
+            
+            // Slider-Elemente und Konfiguration
+            const slides = slider.querySelectorAll('.review-card');
+            const slideWidth = 320; // Breite einer Slide (inkl. margin)
+            let currentSlide = 0;
+            const maxSlides = slides.length;
+            const visibleSlides = window.innerWidth < 768 ? 1 : 3;
+            const maxPosition = maxSlides - visibleSlides;
+            
+            // Initialisiere den Slider
+            function initSlider() {
+                // Slider-Dots erstellen
+                const dotsContainer = document.createElement('div');
+                dotsContainer.className = 'slider-dots';
+                
+                const numberOfDots = Math.ceil(maxSlides / visibleSlides);
+                
+                for (let i = 0; i < numberOfDots; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'dot';
+                    if (i === 0) dot.classList.add('active');
+                    
+                    dot.addEventListener('click', function() {
+                        goToSlide(i * visibleSlides);
+                    });
+                    
+                    dotsContainer.appendChild(dot);
+                }
+                
+                const reviewsSection = document.querySelector('.reviews-slider-container');
+                reviewsSection.appendChild(dotsContainer);
+                
+                // Aktualisiere Arrows beim Start
+                updateArrows();
+            }
+            
+            // Event-Listeners für die Pfeile
+            prevArrow.addEventListener('click', function() {
+                if (currentSlide > 0) {
+                    goToSlide(currentSlide - 1);
+                }
+            });
+            
+            nextArrow.addEventListener('click', function() {
+                if (currentSlide < maxPosition) {
+                    goToSlide(currentSlide + 1);
+                }
+            });
+            
+            // Funktion zum Wechseln der Slides
+            function goToSlide(slideIndex) {
+                if (slideIndex >= 0 && slideIndex <= maxPosition) {
+                    currentSlide = slideIndex;
+                    slider.style.transform = `translateX(-${slideWidth * currentSlide}px)`;
+                    updateArrows();
+                    updateDots();
+                }
+            }
+            
+            // Arrows aktivieren/deaktivieren basierend auf Position
+            function updateArrows() {
+                prevArrow.style.opacity = currentSlide === 0 ? '0.3' : '0.7';
+                nextArrow.style.opacity = currentSlide >= maxPosition ? '0.3' : '0.7';
+            }
+            
+            // Dots aktualisieren
+            function updateDots() {
+                const dots = document.querySelectorAll('.dot');
+                const activeDotIndex = Math.floor(currentSlide / visibleSlides);
+                
+                dots.forEach((dot, index) => {
+                    if (index === activeDotIndex) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Automatisches Sliden
+            let autoSlideInterval;
+            
+            function startAutoSlide() {
+                autoSlideInterval = setInterval(function() {
+                    if (currentSlide < maxPosition) {
+                        goToSlide(currentSlide + 1);
+                    } else {
+                        goToSlide(0);
+                    }
+                }, 5000); // Alle 5 Sekunden
+            }
+            
+            function stopAutoSlide() {
+                clearInterval(autoSlideInterval);
+            }
+            
+            // Event-Listener für Hover-Effekt
+            sliderWrapper.addEventListener('mouseenter', stopAutoSlide);
+            sliderWrapper.addEventListener('mouseleave', startAutoSlide);
+            
+            // Touch-Events für mobile Geräte
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            slider.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                stopAutoSlide();
+            }, {passive: true});
+            
+            slider.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+                startAutoSlide();
+            }, {passive: true});
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                if (touchEndX < touchStartX - swipeThreshold) {
+                    // Swipe nach links: nächste Slide
+                    if (currentSlide < maxPosition) {
+                        goToSlide(currentSlide + 1);
+                    }
+                } else if (touchEndX > touchStartX + swipeThreshold) {
+                    // Swipe nach rechts: vorherige Slide
+                    if (currentSlide > 0) {
+                        goToSlide(currentSlide - 1);
+                    }
+                }
+            }
+            
+            // Fenster-Resize-Event
+            window.addEventListener('resize', function() {
+                // Passe die sichtbaren Slides basierend auf Fensterbreite an
+                const newVisibleSlides = window.innerWidth < 768 ? 1 : 3;
+                if (newVisibleSlides !== visibleSlides) {
+                    // Hier müsste ein Reset des Sliders erfolgen
+                    location.reload(); // Einfache Lösung: Seite neu laden
+                }
+            });
+            
+            // Initialisiere beim Laden der Seite
+            initSlider();
+            startAutoSlide();
+        });
+    </script>
+</body>
+</html>
