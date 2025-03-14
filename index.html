@@ -5,15 +5,202 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Optionen strategisch nutzen | Markus Lehleiter</title>
     <meta name="description" content="Lernen Sie Optionen strategisch einzusetzen - für zusätzliche Erträge, optimierte Einstiege und effektive Absicherung. Das Praxishandbuch von Markus Lehleiter.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1a5276;
-            --secondary: #2e86c1;
-            --accent: #f39c12;
-            --light: #f8f9fa;
-            --dark: #2c3e50;
-            --success: #27ae60;
-            --danger: #e74c3c;
+            --primary: #003366; /* Dunkelblau */
+            --secondary: #7e97c3; /* Hellblau */
+            --accent: #ffd700; /* Goldgelb */
+            --light: #ffffff; /* Weiß */
+            --dark: #333333; /* Dunkelgrau */
+            --success: #66cc99; /* Mintgrün */
+            --text-gray: #555555; /* Mittelgrau */
+            --black: #000000; /* Schwarz */
+        }
+        
+        /* Cookie Banner Styles */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 1rem;
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cookie-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        
+        .cookie-text {
+            flex: 3;
+            min-width: 250px;
+        }
+        
+        .cookie-buttons {
+            flex: 1;
+            min-width: 250px;
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+        }
+        
+        .cookie-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .accept-all {
+            background-color: var(--success);
+            color: var(--dark);
+        }
+        
+        .accept-necessary {
+            background-color: transparent;
+            color: var(--light);
+            border: 1px solid var(--light);
+        }
+        
+        .cookie-settings {
+            background-color: transparent;
+            color: var(--accent);
+            text-decoration: underline;
+            border: none;
+            padding: 0.5rem;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        /* Cookie Modal Styles */
+        .cookie-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .cookie-modal-content {
+            background-color: var(--light);
+            color: var(--dark);
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .cookie-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        .cookie-type {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+        
+        .cookie-type-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .toggle-container {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .toggle-checkbox {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-label {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .toggle-label:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: var(--success);
+        }
+        
+        .toggle-checkbox:checked + .toggle-label:before {
+            transform: translateX(26px);
+        }
+        
+        .necessary-toggle .toggle-checkbox:checked + .toggle-label {
+            background-color: var(--success);
+        }
+        
+        .necessary-toggle .toggle-checkbox:disabled + .toggle-label {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .cookie-modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
         }
         
         * {
@@ -23,7 +210,7 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Roboto', sans-serif;
             line-height: 1.6;
             color: var(--dark);
             background-color: var(--light);
@@ -108,11 +295,11 @@
         
         .btn-primary {
             background-color: var(--accent);
-            color: white;
+            color: var(--black);
         }
         
         .btn-primary:hover {
-            background-color: #e67e22;
+            background-color: #e6c300;
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
@@ -173,7 +360,7 @@
         .price-tag {
             display: inline-block;
             background-color: var(--accent);
-            color: white;
+            color: var(--black);
             padding: 0.5rem 1rem;
             border-radius: 30px;
             font-weight: bold;
@@ -405,15 +592,17 @@
             padding: 0.8rem;
             border: none;
             border-radius: 5px 0 0 5px;
+            font-family: 'Roboto', sans-serif;
         }
         
         .newsletter-form button {
             background-color: var(--accent);
-            color: white;
+            color: var(--black);
             border: none;
             padding: 0 1.5rem;
             border-radius: 0 5px 5px 0;
             cursor: pointer;
+            font-family: 'Roboto', sans-serif;
         }
         
         footer {
@@ -478,7 +667,7 @@
         
         .bonus-banner {
             background-color: var(--accent);
-            color: white;
+            color: var(--black);
             padding: 1rem;
             border-radius: 5px;
             margin: 2rem auto;
@@ -567,6 +756,70 @@
     </style>
 </head>
 <body>
+    <!-- Cookie Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <p>Wir verwenden Cookies, um Ihnen die bestmögliche Erfahrung auf unserer Website zu bieten. Durch die Nutzung dieser Website stimmen Sie der Verwendung von Cookies gemäß unserer <a href="#" style="color: var(--accent);">Datenschutzerklärung</a> zu.</p>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn accept-all" id="acceptAllCookies">Alle akzeptieren</button>
+                <button class="cookie-btn accept-necessary" id="acceptNecessaryCookies">Nur notwendige</button>
+                <button class="cookie-settings" id="cookieSettings">Einstellungen</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Cookie Settings Modal -->
+    <div class="cookie-modal" id="cookieModal">
+        <div class="cookie-modal-content">
+            <div class="cookie-modal-header">
+                <h3>Cookie-Einstellungen</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="cookie-modal-body">
+                <p>Hier können Sie festlegen, welche Cookies Sie zulassen möchten. Bitte beachten Sie, dass einige Cookies notwendig sind, damit unsere Website ordnungsgemäß funktioniert.</p>
+                
+                <div class="cookie-type">
+                    <div class="cookie-type-header">
+                        <h4>Notwendige Cookies</h4>
+                        <div class="toggle-container necessary-toggle">
+                            <input type="checkbox" id="necessaryCookies" class="toggle-checkbox" checked disabled>
+                            <label for="necessaryCookies" class="toggle-label"></label>
+                        </div>
+                    </div>
+                    <p>Diese Cookies sind für das Funktionieren der Website unerlässlich und können nicht deaktiviert werden.</p>
+                </div>
+                
+                <div class="cookie-type">
+                    <div class="cookie-type-header">
+                        <h4>Analyse-Cookies</h4>
+                        <div class="toggle-container">
+                            <input type="checkbox" id="analyticsCookies" class="toggle-checkbox">
+                            <label for="analyticsCookies" class="toggle-label"></label>
+                        </div>
+                    </div>
+                    <p>Diese Cookies helfen uns, die Nutzung unserer Website zu verstehen und zu analysieren.</p>
+                </div>
+                
+                <div class="cookie-type">
+                    <div class="cookie-type-header">
+                        <h4>Marketing-Cookies</h4>
+                        <div class="toggle-container">
+                            <input type="checkbox" id="marketingCookies" class="toggle-checkbox">
+                            <label for="marketingCookies" class="toggle-label"></label>
+                        </div>
+                    </div>
+                    <p>Diese Cookies werden verwendet, um Werbung relevanter für Sie zu gestalten.</p>
+                </div>
+            </div>
+            <div class="cookie-modal-footer">
+                <button class="cookie-btn accept-necessary" id="saveSettings">Einstellungen speichern</button>
+                <button class="cookie-btn accept-all" id="acceptAllModal">Alle akzeptieren</button>
+            </div>
+        </div>
+    </div>
+    
     <header>
         <nav>
             <div class="logo">Just Options</div>
@@ -752,182 +1005,3 @@
                             <div class="review-content">"Neue Perspektiven und Möglichkeiten durch Optionen. Dieses Buch hat mir großartige Einblicke in Optionen gegeben und mir völlig neue Möglichkeiten aufgezeigt."</div>
                             <div class="review-author">- Pouyan Rafiei Fard</div>
                         </div>
-                    </div>
-                </div>
-                <button class="slider-arrow next-arrow">&#10095;</button>
-                <div class="slider-dots" id="sliderDots">
-                    <!-- Dots werden per JavaScript generiert -->
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section id="faq">
-        <div class="container">
-            <h2>Häufig gestellte Fragen</h2>
-            <div class="faq">
-                <div class="faq-item">
-                    <div class="faq-question">Ist dieses Buch für Anfänger geeignet?</div>
-                    <div class="faq-answer">
-                        <p>Ja, das Buch ist so aufgebaut, dass es vom Grundlagenwissen bis zu fortgeschrittenen Strategien führt. Einsteiger erhalten eine solide Einführung in die Grundlagen des Optionshandels ergänzt mit praktischen Beispielen.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Welche Vorkenntnisse benötige ich?</div>
-                    <div class="faq-answer">
-                        <p>Grundlegende Kenntnisse über Aktien und Finanzmärkte sind hilfreich, aber nicht zwingend erforderlich. Das Buch erklärt alle notwendigen Konzepte von Grund auf. Eine gewisse Affinität zu Zahlen und analytischem Denken ist von Vorteil.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Wie viel Kapital benötige ich, um mit dem Optionshandel zu beginnen?</div>
-                    <div class="faq-answer">
-                        <p>Im Buch wird empfohlen, mit mindestens 5.000 bis 10.000 Euro zu starten, um sinnvolle Positionen eingehen und ein angemessenes Risikomanagement betreiben zu können. Es handelt sich um Kapital, das nicht für den täglichen Lebensunterhalt benötigt wird.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Gibt es zusätzliches Material zum Buch?</div>
-                    <div class="faq-answer">
-                        <p>Ja, nach Anmeldung auf www.just-options.de erhältst du Zugang zu wertvollem Bonusmaterial wie Templates, Checklisten und Strategiehilfen, die dir die praktische Umsetzung erleichtern.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Ist das Buch auch als E-Book erhältlich?</div>
-                    <div class="faq-answer">
-                        <p>Derzeit ist das Buch als Taschenbuch erhältlich. Eine E-Book-Version ist in Planung und wird zu einem späteren Zeitpunkt veröffentlicht.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="cta">
-        <div class="container">
-            <h2>Starten Sie jetzt mit Optionshandel</h2>
-            <p>Verschaffen Sie sich einen systematischen Vorteil am Kapitalmarkt durch den cleveren Einsatz von Optionen!</p>
-            <a href="https://www.amazon.de/Optionen-strategisch-nutzen-investieren-Zusatzerträge/dp/3982686903/" class="btn btn-primary">Jetzt das Buch kaufen</a>
-        </div>
-    </section>
-    
-    <section class="newsletter">
-        <div class="container">
-            <h3>Bleiben Sie informiert</h3>
-            <p>Abonnieren Sie unseren Newsletter für praktische Tipps und Updates zum Optionshandel</p>
-            <form class="newsletter-form">
-                <input type="email" placeholder="Ihre E-Mail-Adresse">
-                <button type="submit">Abonnieren</button>
-            </form>
-        </div>
-    </section>
-    
-    <footer>
-        <div class="container">
-            <p>© 2025 Markus Lehleiter - Just Options</p>
-            <ul class="footer-links">
-                <li><a href="#">Impressum</a></li>
-                <li><a href="#">Datenschutz</a></li>
-                <li><a href="#">Kontakt</a></li>
-            </ul>
-            <p>Alle Rechte vorbehalten.</p>
-        </div>
-    </footer>
-    
-    <script>
-        // Slider Funktionalität
-        document.addEventListener('DOMContentLoaded', function() {
-            const slider = document.getElementById('reviewsSlider');
-            const prevArrow = document.querySelector('.prev-arrow');
-            const nextArrow = document.querySelector('.next-arrow');
-            const dotsContainer = document.getElementById('sliderDots');
-            
-            const slides = slider.querySelectorAll('.review-card');
-            let currentIndex = 0;
-            let slideWidth = slides[0].offsetWidth + 20; // Kartenbreite + Margin
-            let slidesPerView = window.innerWidth < 768 ? 1 : 3; // Mobile vs Desktop
-            
-            // Dots generieren
-            for (let i = 0; i < slides.length - slidesPerView + 1; i++) {
-                const dot = document.createElement('div');
-                dot.classList.add('dot');
-                if (i === 0) dot.classList.add('active');
-                dot.addEventListener('click', () => {
-                    goToSlide(i);
-                });
-                dotsContainer.appendChild(dot);
-            }
-            
-            // Event-Listener für Pfeile
-            prevArrow.addEventListener('click', () => {
-                if (currentIndex > 0) {
-                    goToSlide(currentIndex - 1);
-                } else {
-                    // Optional: Zum letzten Slide springen
-                    goToSlide(slides.length - slidesPerView);
-                }
-            });
-            
-            nextArrow.addEventListener('click', () => {
-                if (currentIndex < slides.length - slidesPerView) {
-                    goToSlide(currentIndex + 1);
-                } else {
-                    // Optional: Zum ersten Slide zurückspringen
-                    goToSlide(0);
-                }
-            });
-            
-            // Zu einem bestimmten Slide gehen
-            function goToSlide(index) {
-                currentIndex = index;
-                slider.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-                
-                // Aktiven Dot aktualisieren
-                const dots = dotsContainer.querySelectorAll('.dot');
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === currentIndex);
-                });
-            }
-            
-            // Automatisches Scrollen
-            let autoScrollInterval = setInterval(() => {
-                if (currentIndex < slides.length - slidesPerView) {
-                    goToSlide(currentIndex + 1);
-                } else {
-                    goToSlide(0);
-                }
-            }, 5000);
-            
-            // Pause beim Hover
-            slider.addEventListener('mouseenter', () => {
-                clearInterval(autoScrollInterval);
-            });
-            
-            slider.addEventListener('mouseleave', () => {
-                autoScrollInterval = setInterval(() => {
-                    if (currentIndex < slides.length - slidesPerView) {
-                        goToSlide(currentIndex + 1);
-                    } else {
-                        goToSlide(0);
-                    }
-                }, 5000);
-            });
-            
-            // Bei Größenänderung anpassen
-            window.addEventListener('resize', () => {
-                slideWidth = slides[0].offsetWidth + 20;
-                slidesPerView = window.innerWidth < 768 ? 1 : 3;
-                goToSlide(0); // Zurück zum Anfang
-                
-                // Dots neu generieren
-                dotsContainer.innerHTML = '';
-                for (let i = 0; i < slides.length - slidesPerView + 1; i++) {
-                    const dot = document.createElement('div');
-                    dot.classList.add('dot');
-                    if (i === 0) dot.classList.add('active');
-                    dot.addEventListener('click', () => {
-                        goToSlide(i);
-                    });
-                    dotsContainer.appendChild(dot);
-                }
-            });
-        });
-    </script>
-</html>
