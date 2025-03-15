@@ -1,8 +1,57 @@
-<!DOCTYPE html>
+/* Bessere Responsivität für alle Elemente */
+        @media screen and (max-width: 992px) {
+            .container {
+                width: 90%;
+            }
+            
+            h1 {
+                font-size: clamp(1.8rem, 3vw + 1rem, 3rem);
+            }
+            
+            h2 {
+                font-size: clamp(1.6rem, 2.5vw + 0.5rem, 2.5rem);
+            }
+            
+            h3 {
+                font-size: clamp(1.1rem, 1.5vw + 0.3rem, 1.5rem);
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .feature-card {
+                padding: 1.5rem;
+            }
+            
+            .feature-card h3 {
+                font-size: 1rem;
+            }
+            
+            .book-preview {
+                gap: 1.5rem;
+            }
+        }
+        
+        @media screen and (max-width: 860px) {
+            .container {
+                width: 95%;
+                padding: 0 10px;
+            }
+            
+            section {
+                padding: 4rem 0;
+            }
+            
+            .reviews-slider-container {
+                padding: 0 35px;
+            }
+        }<!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Optionen strategisch nutzen | Markus Lehleiter</title>
     <meta name="description" content="Lernen Sie Optionen strategisch einzusetzen - für zusätzliche Erträge, optimierte Einstiege und effektive Absicherung. Das Praxishandbuch von Markus Lehleiter.">
     
@@ -33,6 +82,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            max-width: 100%;
         }
         
         /* Responsive Typografie für alle Bildschirmgrößen */
@@ -49,6 +99,8 @@
             -webkit-text-size-adjust: 100%;
             -webkit-font-smoothing: antialiased;
             font-size: 1rem;
+            overflow-x: hidden;
+            width: 100%;
         }
         
         h1 {
@@ -147,11 +199,13 @@
             outline: none;
         }
         
+        /* Verbesserte Container und Grid-Layouts */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
             width: 100%;
+            overflow: hidden;
         }
         
         .hero {
@@ -268,6 +322,7 @@
             height: auto;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             border-radius: 5px;
+            object-fit: contain;
         }
         
         .book-details {
@@ -331,6 +386,8 @@
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
         
         .feature-card h3 span {
@@ -934,7 +991,7 @@
             }
             
             .feature-card h3 {
-                font-size: 1.2rem;
+                font-size: 0.95rem;
             }
             
             .feature-card h3 span {
