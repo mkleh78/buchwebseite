@@ -1,4 +1,7 @@
-.cta .btn-primary {
+.spacer {
+            height: 5rem;
+            display: none;
+        }        .cta .btn-primary {
             background-color: var(--accent);
             color: var(--black);
             border-color: var(--black);
@@ -113,6 +116,7 @@
             color: white;
             text-align: center;
             padding: 5rem 2rem;
+            border-top: none;
         }
         
         .hero h1 {
@@ -174,6 +178,17 @@
         
         section {
             padding: 5rem 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        section:nth-child(odd) {
+            background-color: var(--light);
+        }
+        
+        section:nth-child(even) {
+            background-color: #f8f8f8;
         }
         
         section h2 {
@@ -227,6 +242,18 @@
         
         .features {
             background-color: #f5f5f5;
+        }
+        
+        #book {
+            background-color: var(--light);
+        }
+        
+        #toc {
+            background-color: #f8f8f8;
+        }
+        
+        #author {
+            background-color: var(--light);
         }
         
         .features-grid {
@@ -286,6 +313,12 @@
         .reviews {
             background-color: var(--primary);
             color: white;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .reviews::before, .reviews::after {
+            display: none;
         }
         
         .reviews h2 {
@@ -392,10 +425,14 @@
             background-color: white;
         }
         
+        #faq {
+            background-color: #f8f8f8;
+        }
+        
         .cta {
             text-align: center;
             padding: 5rem 0;
-            background-color: #f5f5f5;
+            background-color: var(--light);
         }
         
         .cta h2 {
@@ -441,6 +478,8 @@
             color: white;
             padding: 4rem 0;
             text-align: center;
+            border-top: none;
+            border-bottom: none;
         }
         
         .newsletter h3 {
@@ -485,6 +524,7 @@
             color: white;
             padding: 3rem 0;
             text-align: center;
+            border-top: none;
         }
         
         .footer-links {
