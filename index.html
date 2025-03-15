@@ -1079,6 +1079,198 @@
                 height: 28px;
             }
         }
+    /* Cookie Consent Styles */
+    .cookie-consent {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.9);
+        color: white;
+        padding: 20px;
+        z-index: 9999;
+        display: none;
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .cookie-consent.show {
+        display: block;
+    }
+    
+    .cookie-consent-content {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .cookie-consent h3 {
+        margin-top: 0;
+        color: white;
+        font-size: 1.3rem;
+    }
+    
+    .cookie-category {
+        margin: 15px 0;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .cookie-category:last-child {
+        border-bottom: none;
+    }
+    
+    .cookie-category-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .cookie-toggle {
+        display: flex;
+        align-items: center;
+    }
+    
+    .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+        margin-left: 10px;
+    }
+    
+    .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    
+    .toggle-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: .4s;
+        border-radius: 24px;
+    }
+    
+    .toggle-slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+    }
+    
+    input:checked + .toggle-slider {
+        background-color: var(--accent);
+    }
+    
+    input:disabled + .toggle-slider {
+        background-color: #555;
+        cursor: not-allowed;
+    }
+    
+    input:checked + .toggle-slider:before {
+        transform: translateX(26px);
+    }
+    
+    .essential-note {
+        font-size: 0.8rem;
+        color: #aaa;
+        font-style: italic;
+    }
+    
+    .cookie-description {
+        margin-top: 10px;
+        font-size: 0.9rem;
+        color: #ccc;
+    }
+    
+    .cookie-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .cookie-policy-link {
+        color: var(--accent);
+        text-decoration: underline;
+        margin-right: 15px;
+    }
+    
+    .cookie-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    
+    .cookie-btn {
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        border: none;
+        font-family: 'Roboto', sans-serif;
+        transition: all 0.3s;
+    }
+    
+    .btn-accept-all {
+        background-color: var(--accent);
+        color: black;
+    }
+    
+    .btn-accept-all:hover {
+        background-color: white;
+        color: black;
+    }
+    
+    .btn-accept-necessary {
+        background-color: transparent;
+        color: white;
+        border: 1px solid white;
+    }
+    
+    .btn-accept-necessary:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .btn-save-preferences {
+        background-color: #555;
+        color: white;
+    }
+    
+    .btn-save-preferences:hover {
+        background-color: #777;
+    }
+    
+    @media screen and (max-width: 768px) {
+        .cookie-actions {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .cookie-buttons {
+            margin-top: 10px;
+            width: 100%;
+            justify-content: space-between;
+        }
+        
+        .cookie-btn {
+            flex: 1;
+            text-align: center;
+            font-size: 0.9rem;
+            padding: 10px 8px;
+        }
+    }
     </style>
 </head>
 <body>
@@ -1595,6 +1787,225 @@
         // Initialisiere beim Laden der Seite
         initSlider();
         startAutoSlide();
+    });
+    </script>
+
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-consent" id="cookieConsent">
+        <div class="cookie-consent-content">
+            <h3>Cookie-Einstellungen</h3>
+            <p>Wir verwenden Cookies, um Ihnen ein optimales Webseiten-Erlebnis zu bieten. Einige davon sind für den Betrieb der Seite notwendig, während andere uns helfen, diese Webseite und Ihre Erfahrung zu verbessern.</p>
+            
+            <div class="cookie-category">
+                <div class="cookie-category-header">
+                    <h4>Notwendige Cookies</h4>
+                    <div class="cookie-toggle">
+                        <span class="essential-note">Immer aktiv</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked disabled>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="cookie-description">
+                    Diese Cookies sind für die Grundfunktionen der Website erforderlich und können nicht deaktiviert werden. Sie enthalten keine personenbezogenen Daten und werden nach Schließen Ihres Browsers gelöscht.
+                </div>
+            </div>
+            
+            <div class="cookie-category">
+                <div class="cookie-category-header">
+                    <h4>Funktionale Cookies</h4>
+                    <div class="cookie-toggle">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="functionalCookies">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="cookie-description">
+                    Diese Cookies ermöglichen erweiterte Funktionen und Personalisierung der Website, wie das Speichern Ihrer Präferenzen und Einstellungen.
+                </div>
+            </div>
+            
+            <div class="cookie-category">
+                <div class="cookie-category-header">
+                    <h4>Analyse-Cookies</h4>
+                    <div class="cookie-toggle">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="analyticsCookies">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="cookie-description">
+                    Diese Cookies helfen uns zu verstehen, wie Besucher mit unserer Website interagieren. Die gesammelten Informationen werden aggregiert und anonymisiert. Sie helfen uns, unsere Inhalte und die Benutzererfahrung zu verbessern.
+                </div>
+            </div>
+            
+            <div class="cookie-category">
+                <div class="cookie-category-header">
+                    <h4>Marketing-Cookies</h4>
+                    <div class="cookie-toggle">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="marketingCookies">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="cookie-description">
+                    Diese Cookies werden von unseren Werbepartnern gesetzt und helfen dabei, Ihnen relevantere Werbung anzuzeigen. Sie verfolgen Ihre Browsing-Gewohnheiten und können Ihre Aktivitäten auf anderen Websites verfolgen.
+                </div>
+            </div>
+            
+            <div class="cookie-actions">
+                <div>
+                    <a href="https://www.just-options.de/datenschutz" class="cookie-policy-link" target="_blank">Datenschutzerklärung</a>
+                    <a href="https://www.just-options.de/cookies" class="cookie-policy-link" target="_blank">Cookie-Richtlinie</a>
+                </div>
+                <div class="cookie-buttons">
+                    <button class="cookie-btn btn-accept-necessary" id="acceptNecessary">Nur notwendige akzeptieren</button>
+                    <button class="cookie-btn btn-save-preferences" id="savePreferences">Auswahl speichern</button>
+                    <button class="cookie-btn btn-accept-all" id="acceptAll">Alle akzeptieren</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Cookie Consent Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const cookieConsent = document.getElementById('cookieConsent');
+        const acceptAllBtn = document.getElementById('acceptAll');
+        const acceptNecessaryBtn = document.getElementById('acceptNecessary');
+        const savePreferencesBtn = document.getElementById('savePreferences');
+        const functionalCookiesToggle = document.getElementById('functionalCookies');
+        const analyticsCookiesToggle = document.getElementById('analyticsCookies');
+        const marketingCookiesToggle = document.getElementById('marketingCookies');
+        
+        // Check if user has already made cookie choices
+        const cookieChoices = getCookie('cookieConsent');
+        
+        if (!cookieChoices) {
+            // Show cookie consent if no choices have been made
+            cookieConsent.classList.add('show');
+        } else {
+            // Apply saved preferences
+            const preferences = JSON.parse(cookieChoices);
+            functionalCookiesToggle.checked = preferences.functional;
+            analyticsCookiesToggle.checked = preferences.analytics;
+            marketingCookiesToggle.checked = preferences.marketing;
+            
+            // Apply the cookie settings
+            applyCookieSettings(preferences);
+        }
+        
+        // Accept all cookies
+        acceptAllBtn.addEventListener('click', function() {
+            const preferences = {
+                necessary: true,
+                functional: true,
+                analytics: true,
+                marketing: true
+            };
+            
+            // Save preferences
+            setCookie('cookieConsent', JSON.stringify(preferences), 365);
+            
+            // Apply settings
+            applyCookieSettings(preferences);
+            
+            // Hide consent
+            cookieConsent.classList.remove('show');
+        });
+        
+        // Accept only necessary cookies
+        acceptNecessaryBtn.addEventListener('click', function() {
+            const preferences = {
+                necessary: true,
+                functional: false,
+                analytics: false,
+                marketing: false
+            };
+            
+            // Update toggles to match selection
+            functionalCookiesToggle.checked = false;
+            analyticsCookiesToggle.checked = false;
+            marketingCookiesToggle.checked = false;
+            
+            // Save preferences
+            setCookie('cookieConsent', JSON.stringify(preferences), 365);
+            
+            // Apply settings
+            applyCookieSettings(preferences);
+            
+            // Hide consent
+            cookieConsent.classList.remove('show');
+        });
+        
+        // Save custom preferences
+        savePreferencesBtn.addEventListener('click', function() {
+            const preferences = {
+                necessary: true, // Always required
+                functional: functionalCookiesToggle.checked,
+                analytics: analyticsCookiesToggle.checked,
+                marketing: marketingCookiesToggle.checked
+            };
+            
+            // Save preferences
+            setCookie('cookieConsent', JSON.stringify(preferences), 365);
+            
+            // Apply settings
+            applyCookieSettings(preferences);
+            
+            // Hide consent
+            cookieConsent.classList.remove('show');
+        });
+        
+        // Helper functions
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/;SameSite=Lax";
+        }
+        
+        function getCookie(name) {
+            const cookieName = name + "=";
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                if (cookie.indexOf(cookieName) === 0) {
+                    return cookie.substring(cookieName.length, cookie.length);
+                }
+            }
+            return null;
+        }
+        
+        function applyCookieSettings(preferences) {
+            // Here you would implement the actual cookie management
+            // For example, enabling/disabling specific tracking scripts based on preferences
+            
+            // This is a placeholder for the actual implementation
+            if (preferences.analytics) {
+                // Enable analytics scripts
+                console.log('Analytics cookies enabled');
+                // Example: loadAnalyticsScripts();
+            } else {
+                // Disable analytics scripts
+                console.log('Analytics cookies disabled');
+                // Example: unloadAnalyticsScripts();
+            }
+            
+            if (preferences.marketing) {
+                // Enable marketing scripts
+                console.log('Marketing cookies enabled');
+                // Example: loadMarketingScripts();
+            } else {
+                // Disable marketing scripts
+                console.log('Marketing cookies disabled');
+                // Example: unloadMarketingScripts();
+            }
+        }
     });
     </script>
 </body>
