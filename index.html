@@ -1523,9 +1523,23 @@
         <div class="container">
             <h3>Bleiben Sie informiert</h3>
             <p class="newsletter-subtitle">Melden Sie sich für unseren Newsletter an und erhalten Sie exklusive Inhalte zum Thema Optionshandel.</p>
-            <form class="newsletter-form">
-                <input type="email" placeholder="Ihre E-Mail-Adresse" required>
-                <button type="submit">Anmelden</button>
+            <form action="https://app.keila.io/forms/nfrm_N4RJKg35" method="post" class="newsletter-form">
+                <div style="background-color: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); display: flex; flex-direction: column; gap: 15px; max-width: 500px; margin: 0 auto;">
+                    <div style="width: 100%;">
+                        <input type="email" name="contact[email]" id="contact_email" placeholder="Ihre E-Mail-Adresse" required style="width: 100%; padding: 0.8rem; border: none; border-radius: 5px; font-family: 'Roboto', sans-serif; font-size: 1rem; margin-bottom: 10px;">
+                    </div>
+                    <div style="width: 100%;">
+                        <input type="text" name="contact[first_name]" id="contact_first_name" placeholder="Ihr Vorname" style="width: 100%; padding: 0.8rem; border: none; border-radius: 5px; font-family: 'Roboto', sans-serif; font-size: 1rem; margin-bottom: 10px;">
+                    </div>
+                    <input aria-hidden="true" autocomplete="off" name="h[url]" novalidate="" style="display: none">
+                    <div style="margin: 0 auto;">
+                        <div class="h-captcha" data-sitekey="a1c5fab7-71df-4ea4-af75-87a3d07c61de" data-theme="dark"></div>
+                        <script async defer src="https://hcaptcha.com/1/api.js"></script>
+                    </div>
+                    <div style="text-align: center; margin-top: 10px;">
+                        <button type="submit" style="background-color: var(--accent); color: var(--black); border: none; padding: 0.8rem 1.8rem; border-radius: 5px; cursor: pointer; font-family: 'Roboto', sans-serif; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.3s; font-size: 1rem; min-height: 44px;">ANMELDEN</button>
+                    </div>
+                </div>
             </form>
         </div>
     </section>
