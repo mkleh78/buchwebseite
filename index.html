@@ -1523,10 +1523,16 @@
         <div class="container">
             <h3>BLEIBEN SIE INFORMIERT</h3>
             <p class="newsletter-subtitle">Melden Sie sich für unseren Newsletter an und erhalten Sie exklusive Inhalte zum Thema Optionshandel.</p>
-            <form action="https://app.keila.io/forms/nfrm_N4RJKg35" method="post" style="max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
-                <input type="email" name="contact[email]" id="contact_email" placeholder="Ihre E-Mail-Adresse" required style="width: 100%; padding: 0.8rem; border: none; border-radius: 5px; font-family: 'Roboto', sans-serif; font-size: 1rem;">
+            <form action="https://app.keila.io/forms/nfrm_N4RJKg35" method="post" style="max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; background-color: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 5px;">
+                <div style="display: flex; flex-direction: column;">
+                    <label for="contact_email" style="color: white; margin-bottom: 5px; font-weight: 500;">E-Mail</label>
+                    <input type="email" name="contact[email]" id="contact_email" required style="width: 100%; padding: 0.8rem; border: 1px solid #6b7280; border-radius: 5px; font-family: 'Roboto', sans-serif; font-size: 1rem; background-color: white; color: var(--dark);">
+                </div>
                 
-                <input type="text" name="contact[first_name]" id="contact_first_name" placeholder="Ihr Vorname" style="width: 100%; padding: 0.8rem; border: none; border-radius: 5px; font-family: 'Roboto', sans-serif; font-size: 1rem;">
+                <div style="display: flex; flex-direction: column;">
+                    <label for="contact_first_name" style="color: white; margin-bottom: 5px; font-weight: 500;">Vorname</label>
+                    <input type="text" name="contact[first_name]" id="contact_first_name" style="width: 100%; padding: 0.8rem; border: 1px solid #6b7280; border-radius: 5px; font-family: 'Roboto', sans-serif; font-size: 1rem; background-color: white; color: var(--dark);">
+                </div>
                 
                 <input aria-hidden="true" autocomplete="off" name="h[url]" novalidate="" style="display: none">
                 
@@ -1535,12 +1541,12 @@
                     <script async defer src="https://hcaptcha.com/1/api.js"></script>
                 </div>
                 
-                <div style="text-align: center; margin-top: 10px;">
+                <div style="margin-top: 10px;">
                     <button type="submit" style="background-color: var(--accent); color: var(--black); border: none; padding: 0.8rem 1.8rem; border-radius: 5px; cursor: pointer; font-family: 'Roboto', sans-serif; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.3s; font-size: 1rem; min-height: 44px;">ANMELDEN</button>
                 </div>
             </form>
         </div>
-    </section>
+</section>
 
     <footer>
         <div class="container">
