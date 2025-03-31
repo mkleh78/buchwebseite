@@ -12,10 +12,15 @@
     <meta property="og:description" content="Lernen Sie Optionen strategisch einzusetzen - für zusätzliche Erträge, optimierte Einstiege und effektive Absicherung. Das Praxishandbuch von Markus Lehleiter.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.just-options.de">
+    <meta property="og:image" content="https://www.just-options.de/Buchcover.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Buchcover: Optionen strategisch nutzen von Markus Lehleiter">
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Optionen strategisch nutzen | Markus Lehleiter">
-    <meta name="twitter:description" content="Lernen Sie Optionen strategisch einzusetzen - für zusätzliche Erträge, optimierte Einstiege und effektive Absicherung. Das Praxishandbuch von Markus Lehleiter."
+    <meta name="twitter:description" content="Lernen Sie Optionen strategisch einzusetzen - für zusätzliche Erträge, optimierte Einstiege und effektive Absicherung. Das Praxishandbuch von Markus Lehleiter.">
+    <meta name="twitter:image" content="https://www.just-options.de/Buchcover.png">
     
     <link rel="canonical" href="https://www.just-options.de/" />
 </title>
@@ -1817,9 +1822,53 @@
             }, 250);
         });
         
+        // Funktion zur korrekten Scroll-Position bei Klick auf Anker-Links
+        function adjustAnchorScroll() {
+            // Verarbeite alle internen Links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetId = this.getAttribute('href');
+                    
+                    if (targetId !== '#') {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(targetId);
+                        
+                        if (targetElement) {
+                            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                            window.scrollTo({
+                                top: targetPosition - headerHeight - 20, // Zusätzlicher Offset für Abstand
+                                behavior: 'smooth'
+                            });
+                            
+                            // Falls wir von einer URL mit Hash kommen, ersetzen wir die URL
+                            history.pushState(null, null, targetId);
+                        }
+                    }
+                });
+            });
+            
+            // Korrigiere auch initiale Anker-Links beim Laden der Seite
+            if (window.location.hash) {
+                setTimeout(function() {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetElement = document.querySelector(window.location.hash);
+                    
+                    if (targetElement) {
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        window.scrollTo({
+                            top: targetPosition - headerHeight - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 300);
+            }
+        }
+        
         // Initialisiere beim Laden der Seite
         initSlider();
         startAutoSlide();
+        adjustAnchorScroll();
     });
     </script>
 
