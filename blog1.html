@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Grundlegende Optionsstrategien für Einsteiger</title>
+    <meta name="description" content="Ein umfassender Überblick über bewährte Einsteigerstrategien im Optionshandel. Lernen Sie die wichtigsten Grundlagen für einen erfolgreichen Start.">
+    
+    <link rel="icon" href="Favicon.jpg" type="image/jpeg">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+      :root {
+            --primary: #003366;
+            --secondary: #7e97c3;
+            --accent: #ffd700;
+            --light: #ffffff;
+            --dark: #333333;
+            --success: #66cc99;
+            --text-gray: #555555;
+            --black: #000000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            max-width: 100%;
+        }
+
+        html {
+            font-size: 16px;
+            font-size: calc(14px + 0.25vw);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+            font-size: 1rem;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw + 1rem, 3.5rem);
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 3vw + 0.5rem, 2.8rem);
+            line-height: 1.2;
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 2vw + 0.3rem, 1.8rem);
+            line-height: 1.3;
+        }
+
+        p {
+            font-size: clamp(0.9rem, 1vw + 0.5rem, 1.1rem);
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            max-width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            justify-content: flex-end;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin: 0 0 0 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+            display: block;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: white;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 110;
+        }
+
+        .mobile-menu-toggle:focus {
+            outline: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .page-title {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/300') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            border-top: none;
+            background-color: #333333;
+        }
+
+        .page-title h1 {
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .page-title p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        section {
+            padding: 5rem 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        section:nth-child(odd) {
+            background-color: var(--light);
+        }
+
+        section:nth-child(even) {
+            background-color: #e2e2e3;
+        }
+
+        section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            line-height: 1.2;
+        }
+
+        .blog-content {
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .blog-content h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .blog-content h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .blog-content p {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+        }
+
+        .blog-content ul {
+            list-style-position: inside;
+            padding-left: 0;
+            margin-bottom: 1rem;
+            color: var(--text-gray);
+        }
+
+        .blog-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-content strong {
+            color: var(--primary);
+        }
+
+        .blog-content a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .blog-content a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            border-top: none;
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-right: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links li {
+            margin: 0 1rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.25rem 0;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            margin: 1rem 0;
+        }
+
+        .social-icons a {
+            color: white;
+            margin: 0 0.8rem;
+            font-size: 1.8rem;
+            transition: color 0.3s ease;
+            display: inline-block;
+            padding: 0.5rem;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+
+       @media screen and (max-width: 992px) {
+            .container {
+                width: 90%;
+            }
+
+            h1 {
+                font-size: clamp(1.8rem, 3vw + 1rem, 3rem);
+            }
+
+            h2 {
+                font-size: clamp(1.6rem, 2.5vw + 0.5rem, 2.5rem);
+            }
+
+            h3 {
+                font-size: clamp(1.1rem, 1.5vw + 0.3rem, 1.5rem);
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .nav-container {
+                justify-content: center;
+                text-align: center;
+            }
+
+            .logo {
+                margin: 0 auto;
+                padding: 0.5rem 0;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background-color: var(--primary);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                z-index: 100;
+                padding: 2rem;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 0.5rem 0;
+            }
+
+            .mobile-menu-toggle {
+                position: absolute;
+                top: 1.5rem;
+                right: 2rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .page-title {
+                padding: 2.5rem 1rem;
+            }
+
+            .page-title h1 {
+                font-size: 2rem;
+            }
+
+            .page-title p {
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 0.7rem 1.4rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="Logo.jpg" alt="Just Options Logo - Optionen strategisch nutzen">
+                    </a>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html#book">Das Buch</a></li>
+                    <li><a href="index.html#features">Inhalte</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="index.html#author">Autor</a></li>
+                    <li><a href="index.html#reviews">Rezensionen</a></li>
+                    <li><a href="index.html#faq">FAQ</a></li>
+                </ul>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="page-title">
+        <div class="container">
+            <h1>Grundlegende Optionsstrategien für Einsteiger</h1>
+            <p>Ein umfassender Überblick über bewährte Einsteigerstrategien im Optionshandel. Lernen Sie die wichtigsten Grundlagen für einen erfolgreichen Start.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="blog-content">
+                <h2>Grundlegende Optionsstrategien für Einsteiger</h2>
+                <p>Optionen bieten Anlegern vielfältige Möglichkeiten, sind aber komplex. Dieser Artikel konzentriert sich auf die grundlegenden Strategien, die Einsteiger kennen sollten, um erfolgreich in den Optionshandel einzusteigen.</p>
+                <h3>Optionen: Die Grundlagen</h3>
+                <p>Optionen sind Finanzinstrumente, die das Recht, aber nicht die Pflicht verbriefen, einen Basiswert zu einem bestimmten Preis (Strike-Preis) innerhalb einer bestimmten Zeit zu kaufen oder zu verkaufen. Es gibt zwei Hauptarten von Optionen:</p>
+                <ul>
+                    <li><strong>Call-Optionen:</strong> Das Recht, einen Basiswert zu kaufen.</li>
+                    <li><strong>Put-Optionen:</strong> Das Recht, einen Basiswert zu verkaufen.</li>
+                </ul>
+                <h3>Grundlegende Strategien für Einsteiger</h3>
+                <p>Für Einsteiger eignen sich besonders folgende Strategien:</p>
+                <ul>
+                    <li><strong>Cash Secured Put:</strong> Hierbei verkauft der Anleger eine Put-Option und erhält dafür eine Prämie. Er verpflichtet sich, den Basiswert zu kaufen, falls der Kurs unter den Strike-Preis fällt. Diese Strategie ist geeignet, um Aktien zu einem gewünschten Preis zu erwerben und gleichzeitig eine Prämie zu kassieren.</li>
+                    <li><strong>Covered Call:</strong> Bei dieser Strategie verkauft der Anleger eine Call-Option auf Aktien, die er bereits besitzt. Er erhält eine Prämie und verpflichtet sich, die Aktien zu verkaufen, falls der Kurs über den Strike-Preis steigt. Diese Strategie eignet sich, um zusätzliche Einnahmen aus dem Aktienbesitz zu erzielen.</li>
+                    <li><strong>Bull Put Spread:</strong> Diese Strategie beinhaltet den Verkauf eines Puts mit einem höheren Strike-Preis und den gleichzeitigen Kauf eines Puts mit einem niedrigeren Strike-Preis. Der maximale Gewinn ist auf die eingenommene Prämie begrenzt, während der maximale Verlust auf die Differenz zwischen den Strike-Preisen abzüglich der Prämie begrenzt ist. Diese Strategie profitiert von einem moderat steigenden oder seitwärts tendierenden Markt.</li>
+                    <li><strong>Bull Call Spread:</strong> Hierbei kauft der Anleger einen Call mit einem niedrigeren Strike-Preis und verkauft gleichzeitig einen Call mit einem höheren Strike-Preis. Der maximale Gewinn ist auf die Differenz zwischen den Strike-Preisen abzüglich der Prämie begrenzt, während der maximale Verlust auf die gezahlte Prämie begrenzt ist. Diese Strategie eignet sich für einen moderat steigenden Markt.</li>
+                </ul>
+                <h3>Risikomanagement</h3>
+                <p>Ein effektives Risikomanagement ist entscheidend. Definieren Sie Ihr maximales Risiko pro Trade und nutzen Sie Stop-Loss-Orders, um potenzielle Verluste zu begrenzen.</p>
+                <h3>Fazit</h3>
+                <p>Für Einsteiger ist es wichtig, sich auf einfache Strategien zu konzentrieren und ein gutes Verständnis für die damit verbundenen Risiken zu entwickeln. Ein strukturierter Ansatz und ein durchdachter Handelsplan sind der Schlüssel zum Erfolg im Optionshandel.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo-container">
+                    <img src="Logo.jpg" alt="Just Options Logo - Optionen strategisch nutzen" style="max-width: 120px; height: auto;">
+                </div>
+                <ul class="footer-links">
+                    <li><a href="index.html#book">Das Buch</a></li>
+                    <li><a href="index.html#author">Autor</a></li>
+                    <li><a href="index.html#reviews">Rezensionen</a></li>
+                    <li><a href="index.html#faq">FAQ</a></li>
+                    <li><a href="impressum.html" target="_blank" rel="noopener">Impressum</a></li>
+                    <li><a href="datenschutz.html" target="_blank" rel="noopener">Datenschutz</a></li>
+                </ul>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/lehleiter/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.instagram.com/just_options.de/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+                <a href="https://t.me/just_options_com" target="_blank" rel="noopener"><i class="fab fa-telegram"></i></a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Lehleiter Investment Training. Alle Rechte vorbehalten.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mobile Menu Funktionalität
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('show');
+            document.body.style.overflow = navLinks.classList.contains('show') ? 'hidden' : 'auto';
+            
+            // Icon ändern
+            const icon = mobileMenuToggle.querySelector('i');
+            if (navLinks.classList.contains('show')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Navlinks auf Mobilgeräten schließen, wenn auf einen Link geklickt wird
+        const navLinkItems = navLinks.querySelectorAll('a');
+        navLinkItems.forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('show');
+                    document.body.style.overflow = 'auto';
+                    
+                    // Icon zurücksetzen
+                    const icon = mobileMenuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>
