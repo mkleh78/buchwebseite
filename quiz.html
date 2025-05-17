@@ -270,40 +270,6 @@
       font-size: 1.1rem;
     }
 
-    .disclaimer-full {
-      background-color: #f8f9fa;
-      border: 1px solid #e9ecef;
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin: 2rem 0;
-      font-size: 0.9rem;
-      color: var(--text-gray);
-      text-align: left;
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .disclaimer-full h3 {
-      color: var(--primary);
-      margin-bottom: 1rem;
-      font-size: 1.2rem;
-      text-align: center;
-    }
-
-    .disclaimer-full h4 {
-      color: var(--dark);
-      margin: 1rem 0 0.5rem;
-      font-size: 1rem;
-    }
-
-    .disclaimer-acceptance {
-      font-weight: 500;
-      margin-top: 1rem;
-      text-align: center;
-      font-style: italic;
-    }
-
     /* Quiz-spezifische Stile */
     #options-quiz {
       background-color: #f9f9f9;
@@ -391,9 +357,10 @@
       color: var(--primary);
     }
 
+    /* GEÄNDERT: Antworten immer untereinander anzeigen */
     #answer-buttons {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: 1fr; /* Immer nur eine Spalte */
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
@@ -663,32 +630,89 @@
       background-color: #25d366;
     }
 
-    .bonus-banner {
-      background-color: var(--accent);
-      color: var(--black);
-      padding: 1.5rem 1rem;
-      border-radius: 5px;
+    /* Newsletter Box */
+    .newsletter {
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/600') center/cover no-repeat;
+      color: white;
+      padding: 3rem 1.5rem;
+      border-radius: 10px;
+      text-align: center;
       margin: 2rem auto;
       max-width: 800px;
-      text-align: center;
     }
-
-    .bonus-banner h3 {
-      margin-bottom: 0.5rem;
-    }
-
-    .bonus-banner .btn-primary {
-      background-color: var(--primary);
+    
+    .newsletter h3 {
+      margin-bottom: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
       color: white;
-      border-color: white;
-      margin-top: 15px;
-      display: inline-block;
     }
-
-    .bonus-banner .btn-primary:hover {
+    
+    .newsletter-subtitle {
+      font-size: 1.1rem;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+    
+    .newsletter-form {
+      max-width: 500px;
+      margin: 0 auto 1rem;
+      display: flex;
+      flex-direction: column;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+    
+    .newsletter-form input {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #6b7280;
+      border-radius: 5px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1rem;
       background-color: white;
-      color: var(--primary);
-      border-color: var(--primary);
+      color: var(--dark);
+      min-height: 44px;
+    }
+    
+    .newsletter-form button {
+      background-color: var(--accent);
+      color: var(--black);
+      border: none;
+      padding: 0.8rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: all 0.3s;
+      font-size: 1rem;
+      min-height: 44px;
+      width: 100%;
+      margin-top: 10px;
+    }
+    
+    .newsletter-form button:hover {
+      background-color: white;
+      color: var(--dark);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
     }
 
     /* CTA Sektion */
@@ -805,7 +829,7 @@
       animation: fadeIn 0.5s ease forwards;
     }
 
-    /* Responsive Styles */
+    /* Verbesserte Mobile Responsiveness */
     @media screen and (max-width: 992px) {
       .container {
         width: 90%;
@@ -827,8 +851,12 @@
         flex-direction: column;
       }
       
-      #answer-buttons {
-        grid-template-columns: 1fr;
+      .card {
+        padding: 1.5rem;
+      }
+      
+      section {
+        padding: 3rem 0;
       }
     }
 
@@ -838,13 +866,11 @@
       }
       
       .nav-container {
-        justify-content: center;
-        text-align: center;
+        justify-content: space-between;
       }
       
       .logo {
-        margin: 0 auto;
-        padding: 0.5rem 0;
+        margin: 0;
       }
       
       .nav-links {
@@ -876,15 +902,11 @@
       }
       
       .mobile-menu-toggle {
-        position: absolute;
-        top: 1.5rem;
-        right: 2rem;
+        position: relative;
+        top: 0;
+        right: 0;
       }
       
-      .card {
-        padding: 1.5rem;
-      }
-
       #question-text {
         font-size: 1.2rem;
       }
@@ -896,6 +918,19 @@
       .result-title {
         font-size: 1.5rem;
       }
+      
+      /* Newsletter-Anpassung für Mobilgeräte */
+      .newsletter {
+        padding: 2rem 1rem;
+      }
+      
+      .newsletter h3 {
+        font-size: 1.3rem;
+      }
+      
+      .newsletter-subtitle {
+        font-size: 1rem;
+      }
     }
 
     @media screen and (max-width: 480px) {
@@ -903,14 +938,9 @@
         padding: 1rem;
       }
 
-      .quiz-header {
-        flex-direction: column;
-        align-items: center;
-      }
-
       .quiz-icon {
         margin-right: 0;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
       }
 
       #question-text {
@@ -946,6 +976,22 @@
       .social-icons a {
         font-size: 1.5rem;
         margin: 0 0.5rem;
+      }
+      
+      .share-buttons {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      
+      /* Verbesserte Touch-Targets für mobile Geräte */
+      .answer-btn {
+        padding: 1rem 0.8rem;
+        min-height: 60px;
+      }
+      
+      .option-letter {
+        width: 28px;
+        height: 28px;
       }
     }
   </style>
@@ -1042,10 +1088,30 @@
             </div>
           </div>
           
-          <div class="bonus-banner">
-            <h3>BONUS: Exklusive Templates und Checklisten</h3>
-            <p>Registriere dich jetzt für den Newsletter und erhalte Zugang zu wertvollem Bonusmaterial, das dir hilft, die Inhalte des Buches noch effektiver umzusetzen.</p>
-            <a href="#bonus-material" class="btn btn-primary">Bonus sichern</a>
+          <!-- Newsletter statt Bonus-Banner -->
+          <div class="newsletter">
+            <h3>Erhalte wertvolle Tipps und Bonusmaterial</h3>
+            <p class="newsletter-subtitle">Melde dich für unseren Newsletter an und erhalte exklusive Inhalte zum Thema Optionshandel sowie Zugang zu Trading-Templates und Checklisten.</p>
+            <form action="https://app.keila.io/forms/nfrm_N4RJKg35" method="post" class="newsletter-form">
+              <div class="form-group">
+                <label for="contact_email">E-Mail</label>
+                <input type="email" name="contact[email]" id="contact_email" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="contact_first_name">Vorname</label>
+                <input type="text" name="contact[first_name]" id="contact_first_name">
+              </div>
+              
+              <input aria-hidden="true" autocomplete="off" name="h[url]" novalidate="" style="display: none">
+              
+              <div style="margin: 0 auto;">
+                <div class="h-captcha" data-sitekey="a1c5fab7-71df-4ea4-af75-87a3d07c61de" data-theme="dark"></div>
+                <script async defer src="https://hcaptcha.com/1/api.js"></script>
+              </div>
+              
+              <button type="submit">Anmelden und Bonus erhalten</button>
+            </form>
           </div>
           
           <button id="restart-quiz-btn" class="btn btn-secondary">Quiz neustarten</button>
@@ -1068,28 +1134,6 @@
             </div>
           </div>
         </div>
-      </div>
-      
-      <!-- Ausführlicher rechtlicher Disclaimer -->
-      <div class="disclaimer-full">
-        <h3>Rechtliche Hinweise</h3>
-        
-        <h4>Keine Anlageberatung</h4>
-        <p>Die auf dieser Website, im Quiz und im Buch "Optionen strategisch nutzen" bereitgestellten Informationen dienen ausschließlich zu Bildungs- und Informationszwecken. Sie stellen keine Anlageberatung, Finanzberatung, Rechtsberatung, Steuerberatung oder sonstige professionelle Beratung dar. Weder die Website, das Quiz noch das Buch enthalten konkrete Anlageempfehlungen.</p>
-
-        <h4>Risikohinweis</h4>
-        <p>Der Handel mit Optionen und anderen Finanzinstrumenten ist mit erheblichen Risiken verbunden und kann zum teilweisen oder vollständigen Verlust des eingesetzten Kapitals führen. Vergangene Erfolge sind keine Garantie für zukünftige Gewinne. Die Performance von Optionen und anderen Finanzinstrumenten kann erheblich schwanken, und die zukünftige Performance kann nicht auf Grundlage vergangener Ergebnisse vorhergesagt werden.</p>
-
-        <h4>Eigenverantwortung</h4>
-        <p>Jeder Leser ist für seine eigenen Anlageentscheidungen selbst verantwortlich und sollte diese nur nach gründlicher Recherche und gegebenenfalls nach Konsultation qualifizierter Berater treffen. Vor jeder Anlageentscheidung sollten Sie Ihre persönlichen finanziellen Umstände, Ihre Anlageziele und Risikotoleranz sorgfältig prüfen.</p>
-
-        <h4>Keine Haftung</h4>
-        <p>Der Autor, Markus Lehleiter, und der Verlag übernehmen keine Haftung für Verluste oder Schäden, die durch die Nutzung der auf dieser Website, im Quiz oder im Buch bereitgestellten Informationen entstehen könnten. Die Nutzung dieser Informationen erfolgt auf eigenes Risiko des Lesers.</p>
-
-        <h4>Keine Gewähr</h4>
-        <p>Obwohl alle Anstrengungen unternommen wurden, um die Genauigkeit der Informationen sicherzustellen, kann keine Gewähr für die Vollständigkeit, Aktualität und Richtigkeit der bereitgestellten Informationen übernommen werden. Marktbedingungen und rechtliche Rahmenbedingungen können sich ändern.</p>
-
-        <p class="disclaimer-acceptance">Mit der Nutzung des Quiz akzeptieren Sie diese rechtlichen Hinweise.</p>
       </div>
     </div>
   </section>
