@@ -687,6 +687,11 @@
       margin: 0 auto 2rem;
     }
     
+    .cta .btn {
+      margin: 0.5rem 0.75rem;
+      min-width: 200px;
+    }
+    
     .cta .btn-primary {
       background-color: var(--accent);
       color: var(--black);
@@ -697,6 +702,14 @@
       background-color: var(--black);
       color: var(--accent);
       border-color: var(--accent);
+    }
+    
+    @media screen and (max-width: 768px) {
+      .cta .btn {
+        margin: 0.75rem auto;
+        display: block;
+        max-width: 80%;
+      }
     }
 
     /* Footer-Stile */
