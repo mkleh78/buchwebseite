@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handelsplangenerator für Optionshändler | Markus Lehleiter</title>
+    <meta name="description" content="Erstellen Sie Ihren persönlichen Handelsplan für den Optionshandel. Strukturiert, durchdacht und auf Ihre Bedürfnisse zugeschnitten.">
+    <meta name="author" content="Markus Lehleiter">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="Favicon.jpg" type="image/jpeg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #003366;
+            --secondary: #7e97c3;
+            --accent: #ffd700;
+            --light: #ffffff;
+            --dark: #333333;
+            --success: #66cc99;
+            --text-gray: #555555;
+            --black: #000000;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            max-width: 100%;
+        }
+        
+        html {
+            font-size: 16px;
+            font-size: calc(14px + 0.25vw);
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+            font-size: 1rem;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 4vw + 1rem, 3.5rem);
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-size: clamp(1.8rem, 3vw + 0.5rem, 2.8rem);
+            line-height: 1.2;
+        }
+        
+        h3 {
+            font-size: clamp(1.2rem, 2vw + 0.3rem, 1.8rem);
+            line-height: 1.3;
+        }
+        
+        p {
+            font-size: clamp(0.9rem, 1vw + 0.5rem, 1.1rem);
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            max-width: 100%;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            justify-content: flex-end;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-links li {
+            margin: 0 0 0 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+            display: block;
+            white-space: nowrap;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), #333333;
+            color: white;
+            text-align: center;
+            padding: 5rem 1rem;
+            border-top: none;
+        }
+        
+        .hero h1 {
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            padding: 0 10px;
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 2px solid transparent;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--black);
+            border: 2px solid var(--accent);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--black);
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            border: 2px solid #dc3545;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 5rem 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        section:nth-child(odd) {
+            background-color: var(--light);
+        }
+        
+        section:nth-child(even) {
+            background-color: #e2e2e3;
+        }
+        
+        section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            line-height: 1.2;
+        }
+        
+        /* Disclaimer Modal */
+        .disclaimer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 20px;
+        }
+        
+        .disclaimer-modal {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .disclaimer-title {
+            color: #d32f2f;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .disclaimer-content {
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .disclaimer-content h3 {
+            color: var(--primary);
+            margin: 20px 0 10px 0;
+        }
+        
+        .disclaimer-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .disclaimer-content li {
+            margin-bottom: 8px;
+        }
+        
+        .disclaimer-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .accept-btn, .decline-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .accept-btn {
+            background-color: #4caf50;
+            color: white;
+        }
+        
+        .accept-btn:hover {
+            background-color: #45a049;
+        }
+        
+        .decline-btn {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .decline-btn:hover {
+            background-color: #d32f2f;
+        }
+        
+        .disclaimer-footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Password Section */
+        #passwordSection {
+            background-color: white;
+            padding: 80px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 3rem auto;
+        }
+        
+        #passwordSection h2 {
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        
+        #passwordSection input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+        
+        #passwordSection input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        #passwordError {
+            color: #f44336;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+        
+        /* Form Styles */
+        .form-section {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            transition: transform 0.3s;
+        }
+        
+        .form-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-icon {
+            font-size: 1.2em;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            color: var(--text-gray);
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+        
+        input, select, textarea {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            background: white;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 5px;
+        }
+        
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .risk-indicator {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .risk-level {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-weight: 500;
+        }
+        
+        .risk-low {
+            background-color: #4caf50;
+            color: white;
+        }
+        
+        .risk-medium {
+            background-color: #ff9800;
+            color: white;
+        }
+        
+        .risk-high {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .risk-level.selected {
+            border-color: var(--dark);
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+        
+        /* Output Section */
+        .output-section {
+            display: none;
+            margin-top: 3rem;
+            padding: 3rem;
+            background-color: #f0f7ff;
+            border-radius: 10px;
+            border: 2px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .output-title {
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .plan-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            line-height: 1.8;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .plan-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .plan-section:last-child {
+            border-bottom: none;
+        }
+        
+        .plan-section h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3em;
+        }
+        
+        .plan-section p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .plan-section ul {
+            margin-left: 20px;
+            margin-top: 0.5rem;
+        }
+        
+        .plan-section li {
+            margin-bottom: 0.3rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .action-btn {
+            padding: 10px 25px;
+            font-size: 1em;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+        
+        .action-btn:hover {
+            background-color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            border-top: none;
+            margin-top: 5rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-right: 2rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .footer-links li {
+            margin: 0 1rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.25rem 0;
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .social-icons {
+            margin: 1rem 0;
+        }
+        
+        .social-icons a {
+            color: white;
+            margin: 0 0.8rem;
+            font-size: 1.8rem;
+            transition: color 0.3s ease;
+            display: inline-block;
+            padding: 0.5rem;
+        }
+        
+        .social-icons a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: white;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 110;
+        }
+        
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .nav-container {
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .logo {
+                margin: 0 auto;
+                padding: 0.5rem 0;
+            }
+            
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background-color: var(--primary);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                z-index: 100;
+                padding: 2rem;
+            }
+            
+            .nav-links.show {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 1rem 0;
+            }
+            
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 0.5rem 0;
+            }
+            
+            .mobile-menu-toggle {
+                position: absolute;
+                top: 1.5rem;
+                right: 2rem;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-container {
+                flex-direction: column;
+            }
+            
+            .button-container .btn {
+                width: 100%;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .logo-container {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-links li {
+                margin: 0.3rem 0;
+            }
+            
+            #passwordSection {
+                margin: 2rem 1rem;
+                padding: 40px 20px;
+            }
+            
+            section {
+                padding: 3rem 0;
+            }
+            
+            .hero {
+                padding: 3rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .disclaimer-buttons {
+                flex-direction: column;
+            }
+            
+            .accept-btn, .decline-btn {
+                width: 100%;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            
+            header, footer, .form-section, .button-container, .action-buttons, #passwordSection, .disclaimer-overlay {
+                display: none !important;
+            }
+            
+            .output-section {
+                display: block !important;
+                border: none;
+                background: white;
+                box-shadow: none;
+                padding: 0;
+            }
+            
+            .plan-content {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Disclaimer Modal -->
+    <div id="disclaimerOverlay" class="disclaimer-overlay">
+        <div class="disclaimer-modal">
+            <h2 class="disclaimer-title">⚠️ WICHTIGER HINWEIS & HAFTUNGSAUSSCHLUSS</h2>
+            <div class="disclaimer-content">
+                <h3>Keine Anlageberatung</h3>
+                <p>
+                    Dieser Handelsplangenerator ist ausschließlich ein <strong>Bildungs- und Organisationstool</strong>. 
+                    Die bereitgestellten Funktionen und generierten Handelspläne stellen <strong>KEINE Anlageberatung, 
+                    Empfehlung oder Aufforderung</strong> zum Kauf oder Verkauf von Finanzinstrumenten dar.
+                </p>
+
+                <h3>Risikohinweis</h3>
+                <p>
+                    Der Handel mit Optionen ist <strong>hochspekulativ und mit erheblichen Risiken verbunden</strong>:
+                </p>
+                <ul>
+                    <li>Sie können Ihr gesamtes eingesetztes Kapital verlieren</li>
+                    <li>Bei bestimmten Optionsstrategien sind die Verluste theoretisch unbegrenzt</li>
+                    <li>Optionen sind komplexe Finanzinstrumente und nicht für alle Anleger geeignet</li>
+                    <li>Die Wertentwicklung in der Vergangenheit ist kein Indikator für zukünftige Ergebnisse</li>
+                </ul>
+
+                <h3>Eigenverantwortung</h3>
+                <p>
+                    <strong>Sie handeln auf eigenes Risiko und eigene Verantwortung.</strong> Jede Handelsentscheidung, 
+                    die Sie treffen, liegt ausschließlich in Ihrer Verantwortung. Informieren Sie sich umfassend über 
+                    die Risiken und konsultieren Sie bei Bedarf einen qualifizierten Finanzberater.
+                </p>
+
+                <h3>Haftungsausschluss</h3>
+                <p>
+                    Der Betreiber dieser Webseite übernimmt keinerlei Haftung für:
+                </p>
+                <ul>
+                    <li>Verluste oder Schäden, die durch die Nutzung dieses Tools entstehen</li>
+                    <li>Die Richtigkeit, Vollständigkeit oder Aktualität der bereitgestellten Informationen</li>
+                    <li>Handelsentscheidungen, die auf Basis der generierten Handelspläne getroffen werden</li>
+                    <li>Technische Fehler oder Ausfälle des Tools</li>
+                </ul>
+
+                <h3>Keine Garantie</h3>
+                <p>
+                    Es wird keine Garantie für die Eignung dieses Tools für einen bestimmten Zweck übernommen. 
+                    Die Nutzung erfolgt ohne jegliche Gewährleistung.
+                </p>
+
+                <h3>Rechtlicher Hinweis</h3>
+                <p>
+                    Dieses Tool ersetzt keine professionelle Finanzberatung. Für eine auf Ihre persönlichen 
+                    Verhältnisse zugeschnittene Beratung wenden Sie sich bitte an einen zugelassenen Anlageberater 
+                    oder Ihre Bank.
+                </p>
+            </div>
+            
+            <div class="disclaimer-buttons">
+                <button class="decline-btn" onclick="declineDisclaimer()">Ablehnen und Seite verlassen</button>
+                <button class="accept-btn" onclick="acceptDisclaimer()">Ich verstehe und akzeptiere</button>
+            </div>
+            
+            <div class="disclaimer-footer">
+                Durch Klicken auf "Ich verstehe und akzeptiere" bestätigen Sie, dass Sie diesen Haftungsausschluss 
+                gelesen und verstanden haben.
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="Logo.jpg" alt="Just Options Logo">
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="https://www.just-options.de">Startseite</a></li>
+                    <li><a href="https://www.just-options.de/#book">Das Buch</a></li>
+                    <li><a href="https://www.just-options.de/blog.html">Blog</a></li>
+                    <li><a href="https://www.just-options.de/#author">Autor</a></li>
+                    <li><a href="https://www.just-options.de/#faq">FAQ</a></li>
+                </ul>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Handelsplangenerator für Optionshändler</h1>
+            <p>Erstellen Sie Ihren persönlichen, strukturierten Handelsplan für erfolgreichen Optionshandel</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section>
+        <div class="container">
+            <!-- Password Protection -->
+            <div id="passwordSection">
+                <h2>🔒 Passwortgeschützter Bereich</h2>
+                <p style="color: #666; margin-bottom: 30px;">Bitte geben Sie das Passwort ein, um auf den Handelsplangenerator zuzugreifen.</p>
+                <input type="password" id="passwordInput" placeholder="Passwort eingeben">
+                <button onclick="checkPassword()" class="btn btn-primary" style="width: 100%;">Zugang freischalten</button>
+                <p id="passwordError" style="display: none;">Falsches Passwort. Bitte versuchen Sie es erneut.</p>
+            </div>
+
+            <!-- Main Content (hidden initially) -->
+            <div id="mainContent" style="display: none;">
+                <form id="tradingPlanForm">
+                    <!-- Persönliche Informationen -->
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <span class="section-icon">👤</span>
+                            Persönliche Informationen
+                        </h2>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="traderName">Name des Händlers</label>
+                                <input type="text" id="traderName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="accountSize">Kontogröße (€)</label>
+                                <input type="number" id="accountSize" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="experience">Erfahrungslevel</label>
+                                <select id="experience" required>
+                                    <option value="">Bitte wählen</option>
+                                    <option value="beginner">Anfänger (< 1 Jahr)</option>
+                                    <option value="intermediate">Fortgeschritten (1-3 Jahre)</option>
+                                    <option value="advanced">Erfahren (3-5 Jahre)</option>
+                                    <option value="expert">Experte (> 5 Jahre)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Handelsziele -->
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <span class="section-icon">🎯</span>
+                            Handelsziele
+                        </h2>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="monthlyGoal">Monatliches Renditeziel (%)</label>
+                                <input type="number" id="monthlyGoal" step="0.1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="yearlyGoal">Jährliches Renditeziel (%)</label>
+                                <input type="number" id="yearlyGoal" step="0.1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="maxDrawdown">Maximaler Drawdown (%)</label>
+                                <input type="number" id="maxDrawdown" step="0.1" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tradingObjective">Primäres Handelsziel</label>
+                            <textarea id="tradingObjective" placeholder="z.B. Zusätzliches Einkommen generieren, Vermögensaufbau, Hedging..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Risikomanagement -->
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <span class="section-icon">⚠️</span>
+                            Risikomanagement
+                        </h2>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="riskPerTrade">Risiko pro Trade (% des Kontos)</label>
+                                <input type="number" id="riskPerTrade" step="0.1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="maxPositions">Maximale gleichzeitige Positionen</label>
+                                <input type="number" id="maxPositions" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="stopLoss">Stop-Loss Strategie</label>
+                                <select id="stopLoss" required>
+                                    <option value="">Bitte wählen</option>
+                                    <option value="percentage">Prozentual</option>
+                                    <option value="technical">Technische Level</option>
+                                    <option value="time">Zeitbasiert</option>
+                                    <option value="mixed">Kombiniert</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Risikotoleranz</label>
+                            <div class="risk-indicator">
+                                <div class="risk-level risk-low" data-risk="low">Niedrig</div>
+                                <div class="risk-level risk-medium" data-risk="medium">Mittel</div>
+                                <div class="risk-level risk-high" data-risk="high">Hoch</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Handelsstrategien -->
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <span class="section-icon">📈</span>
+                            Handelsstrategien
+                        </h2>
+                        <div class="form-group">
+                            <label>Bevorzugte Optionsstrategien</label>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="coveredCall" value="Covered Call">
+                                <label for="coveredCall">Covered Call</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="cashSecuredPut" value="Cash Secured Put">
+                                <label for="cashSecuredPut">Cash Secured Put</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="verticalSpread" value="Vertical Spread">
+                                <label for="verticalSpread">Vertical Spread</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="ironCondor" value="Iron Condor">
+                                <label for="ironCondor">Iron Condor</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="butterfly" value="Butterfly">
+                                <label for="butterfly">Butterfly</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="straddle" value="Straddle/Strangle">
+                                <label for="straddle">Straddle/Strangle</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="calendar" value="Calendar Spread">
+                                <label for="calendar">Calendar Spread</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="diagonal" value="Diagonal Spread">
+                                <label for="diagonal">Diagonal Spread</label>
+                            </div>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="timeframe">Bevorzugter Zeithorizont</label>
+                                <select id="timeframe" required>
+                                    <option value="">Bitte wählen</option>
+                                    <option value="weekly">Wöchentlich (0-7 DTE)</option>
+                                    <option value="biweekly">Zweiwöchentlich (7-14 DTE)</option>
+                                    <option value="monthly">Monatlich (30-45 DTE)</option>
+                                    <option value="quarterly">Quartalsweise (60-90 DTE)</option>
+                                    <option value="leaps">LEAPS (> 365 DTE)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="underlyings">Bevorzugte Basiswerte</label>
+                                <input type="text" id="underlyings" placeholder="z.B. SPY, QQQ, AAPL, EUR/USD">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Marktanalyse -->
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <span class="section-icon">📊</span>
+                            Marktanalyse
+                        </h2>
+                        <div class="form-group">
+                            <label>Verwendete Analysemethoden</label>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="technical" value="Technische Analyse">
+                                <label for="technical">Technische Analyse</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="fundamental" value="Fundamentalanalyse">
+                                <label for="fundamental">Fundamentalanalyse</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="sentiment" value="Sentiment Analyse">
+                                <label for="sentiment">Sentiment Analyse</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="volatility" value="Volatilitätsanalyse">
+                                <label for="volatility">Volatilitätsanalyse</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="greeks" value="Greeks Analyse">
+                                <label for="greeks">Greeks Analyse</label>
+                            </div>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="indicators">Hauptindikatoren</label>
+                                <input type="text" id="indicators" placeholder="z.B. RSI, MACD, Bollinger Bands, IV Rank">
+                            </div>
+                            <div class="form-group">
+                                <label for="tradingHours">Handelszeiten</label>
+                                <input type="text" id="tradingHours" placeholder="z.B. 15:30-22:00 Uhr">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Handelsregeln -->
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <span class="section-icon">📋</span>
+                            Handelsregeln
+                        </h2>
+                        <div class="form-group">
+                            <label for="entryRules">Einstiegsregeln</label>
+                            <textarea id="entryRules" placeholder="Definieren Sie Ihre Kriterien für den Einstieg in einen Trade"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="exitRules">Ausstiegsregeln</label>
+                            <textarea id="exitRules" placeholder="Definieren Sie Ihre Kriterien für den Ausstieg aus einem Trade"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="adjustmentRules">Anpassungsregeln</label>
+                            <textarea id="adjustmentRules" placeholder="Wann und wie passen Sie Ihre Positionen an?"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="button-container">
+                        <button type="submit" class="btn btn-primary">Handelsplan Generieren</button>
+                        <button type="button" class="btn btn-danger" onclick="resetForm()">Formular Zurücksetzen</button>
+                    </div>
+                </form>
+
+                <!-- Output Section -->
+                <div id="outputSection" class="output-section">
+                    <h2 class="output-title">Ihr Persönlicher Handelsplan</h2>
+                    <div id="planContent" class="plan-content"></div>
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="window.print()">Plan Drucken</button>
+                        <button class="action-btn" onclick="downloadPlan()">Als PDF Speichern</button>
+                        <button class="action-btn" onclick="copyPlan()">Plan Kopieren</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo-container">
+                    <img src="Logo.jpg" alt="Just Options Logo" style="max-width: 120px; height: auto;">
+                </div>
+                <ul class="footer-links">
+                    <li><a href="https://www.just-options.de">Startseite</a></li>
+                    <li><a href="https://www.just-options.de/#book">Das Buch</a></li>
+                    <li><a href="https://www.just-options.de/#author">Autor</a></li>
+                    <li><a href="https://www.just-options.de/impressum.html">Impressum</a></li>
+                    <li><a href="https://www.just-options.de/datenschutz.html">Datenschutz</a></li>
+                </ul>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/lehleiter/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.instagram.com/just_options.de/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+                <a href="https://t.me/just_options_com" target="_blank" rel="noopener"><i class="fab fa-telegram"></i></a>
+            </div>
+            <div class="copyright">
+                &copy; 2024 Lehleiter Investment Training. Alle Rechte vorbehalten.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Check if disclaimer was already accepted
+        window.addEventListener('load', function() {
+            const disclaimerAccepted = sessionStorage.getItem('disclaimerAccepted');
+            if (disclaimerAccepted === 'true') {
+                document.getElementById('disclaimerOverlay').style.display = 'none';
+                document.getElementById('passwordInput').focus();
+            }
+        });
+
+        // Disclaimer functions
+        function acceptDisclaimer() {
+            sessionStorage.setItem('disclaimerAccepted', 'true');
+            document.getElementById('disclaimerOverlay').style.display = 'none';
+            document.getElementById('passwordInput').focus();
+        }
+
+        function declineDisclaimer() {
+            alert('Sie müssen den Haftungsausschluss akzeptieren, um dieses Tool nutzen zu können.');
+            window.location.href = 'https://www.google.com';
+        }
+
+        // Password Protection
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const correctPassword = 'Lehleiter';
+            
+            if (password === correctPassword) {
+                document.getElementById('passwordSection').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                document.getElementById('passwordError').style.display = 'none';
+            } else {
+                document.getElementById('passwordError').style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+            }
+        }
+
+        // Allow Enter key to submit password
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // Mobile Menu
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('show');
+            document.body.style.overflow = navLinks.classList.contains('show') ? 'hidden' : 'auto';
+            
+            const icon = mobileMenuToggle.querySelector('i');
+            if (navLinks.classList.contains('show')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Risk level selection
+        const riskLevels = document.querySelectorAll('.risk-level');
+        let selectedRisk = '';
+
+        riskLevels.forEach(level => {
+            level.addEventListener('click', () => {
+                riskLevels.forEach(l => l.classList.remove('selected'));
+                level.classList.add('selected');
+                selectedRisk = level.dataset.risk;
+            });
+        });
+
+        // Form submission
+        document.getElementById('tradingPlanForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            generateTradingPlan();
+        });
+
+        function generateTradingPlan() {
+            const formData = new FormData(document.getElementById('tradingPlanForm'));
+            const data = Object.fromEntries(formData.entries());
+
+            // Get selected strategies
+            const strategies = [];
+            document.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
+                strategies.push(cb.value);
+            });
+
+            // Get selected analysis methods
+            const analysisMethods = [];
+            ['technical', 'fundamental', 'sentiment', 'volatility', 'greeks'].forEach(id => {
+                if (document.getElementById(id).checked) {
+                    analysisMethods.push(document.getElementById(id).value);
+                }
+            });
+
+            // Generate the plan
+            const planHTML = `
+                <div class="plan-section">
+                    <h3>👤 Händlerprofil</h3>
+                    <p><strong>Name:</strong> ${data.traderName}</p>
+                    <p><strong>Kontogröße:</strong> €${Number(data.accountSize).toLocaleString('de-DE')}</p>
+                    <p><strong>Erfahrungslevel:</strong> ${getExperienceText(data.experience)}</p>
+                    <p><strong>Risikotoleranz:</strong> ${getRiskText(selectedRisk)}</p>
+                </div>
+
+                <div class="plan-section">
+                    <h3>🎯 Handelsziele</h3>
+                    <p><strong>Monatliches Renditeziel:</strong> ${data.monthlyGoal}%</p>
+                    <p><strong>Jährliches Renditeziel:</strong> ${data.yearlyGoal}%</p>
+                    <p><strong>Maximaler Drawdown:</strong> ${data.maxDrawdown}%</p>
+                    <p><strong>Primäres Ziel:</strong> ${data.tradingObjective || 'Nicht spezifiziert'}</p>
+                </div>
+
+                <div class="plan-section">
+                    <h3>⚠️ Risikomanagement</h3>
+                    <p><strong>Risiko pro Trade:</strong> ${data.riskPerTrade}% des Kontos (€${(data.accountSize * data.riskPerTrade / 100).toFixed(2)})</p>
+                    <p><strong>Maximale gleichzeitige Positionen:</strong> ${data.maxPositions}</p>
+                    <p><strong>Stop-Loss Strategie:</strong> ${getStopLossText(data.stopLoss)}</p>
+                    <p><strong>Maximales Gesamtrisiko:</strong> ${(data.riskPerTrade * data.maxPositions).toFixed(1)}% des Kontos</p>
+                </div>
+
+                <div class="plan-section">
+                    <h3>📈 Handelsstrategien</h3>
+                    <p><strong>Bevorzugte Strategien:</strong> ${strategies.join(', ') || 'Keine ausgewählt'}</p>
+                    <p><strong>Zeithorizont:</strong> ${getTimeframeText(data.timeframe)}</p>
+                    <p><strong>Bevorzugte Basiswerte:</strong> ${data.underlyings || 'Nicht spezifiziert'}</p>
+                </div>
+
+                <div class="plan-section">
+                    <h3>📊 Marktanalyse</h3>
+                    <p><strong>Analysemethoden:</strong> ${analysisMethods.join(', ') || 'Keine ausgewählt'}</p>
+                    <p><strong>Hauptindikatoren:</strong> ${data.indicators || 'Nicht spezifiziert'}</p>
+                    <p><strong>Handelszeiten:</strong> ${data.tradingHours || 'Nicht spezifiziert'}</p>
+                </div>
+
+                <div class="plan-section">
+                    <h3>📋 Handelsregeln</h3>
+                    <p><strong>Einstiegsregeln:</strong></p>
+                    <p>${data.entryRules || 'Nicht spezifiziert'}</p>
+                    <p><strong>Ausstiegsregeln:</strong></p>
+                    <p>${data.exitRules || 'Nicht spezifiziert'}</p>
+                    <p><strong>Anpassungsregeln:</strong></p>
+                    <p>${data.adjustmentRules || 'Nicht spezifiziert'}</p>
+                </div>
+
+                <div class="plan-section">
+                    <h3>📅 Handelsroutine</h3>
+                    <p><strong>Tägliche Aufgaben:</strong></p>
+                    <ul>
+                        <li>Marktanalyse vor Handelsbeginn durchführen</li>
+                        <li>Offene Positionen überprüfen und anpassen</li>
+                        <li>Neue Handelsmöglichkeiten identifizieren</li>
+                        <li>Trades im Handelsjournal dokumentieren</li>
+                    </ul>
+                    <p><strong>Wöchentliche Aufgaben:</strong></p>
+                    <ul>
+                        <li>Performance-Review durchführen</li>
+                        <li>Handelsplan auf Anpassungsbedarf prüfen</li>
+                        <li>Risikomanagement evaluieren</li>
+                    </ul>
+                </div>
+
+                <div class="plan-section">
+                    <h3>🚨 Notfallplan</h3>
+                    <p>Bei Erreichen des maximalen Drawdowns von ${data.maxDrawdown}%:</p>
+                    <ul>
+                        <li>Sofortiger Handelsstopp</li>
+                        <li>Analyse aller verlustbringenden Trades</li>
+                        <li>Überprüfung und Anpassung der Strategie</li>
+                        <li>Reduzierung der Positionsgröße beim Wiedereinstieg</li>
+                    </ul>
+                </div>
+
+                <div class="plan-section">
+                    <p><strong>Erstellt am:</strong> ${new Date().toLocaleDateString('de-DE')}</p>
+                    <p><strong>Nächste Überprüfung:</strong> ${new Date(Date.now() + 30*24*60*60*1000).toLocaleDateString('de-DE')}</p>
+                </div>
+
+                <div class="plan-section" style="background: #fff3cd; border: 2px solid #ffc107; padding: 20px; border-radius: 10px;">
+                    <h3 style="color: #856404;">⚠️ Wichtiger Hinweis</h3>
+                    <p style="color: #856404; margin: 0;">
+                        <strong>Dieser Handelsplan stellt keine Anlageberatung dar.</strong> 
+                        Er dient ausschließlich zu Bildungs- und Organisationszwecken. 
+                        Alle Handelsentscheidungen treffen Sie auf eigenes Risiko. 
+                        Der Handel mit Optionen kann zum Totalverlust des eingesetzten Kapitals führen.
+                    </p>
+                </div>
+            `;
+
+            document.getElementById('planContent').innerHTML = planHTML;
+            document.getElementById('outputSection').style.display = 'block';
+            document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function getExperienceText(exp) {
+            const experiences = {
+                'beginner': 'Anfänger (< 1 Jahr)',
+                'intermediate': 'Fortgeschritten (1-3 Jahre)',
+                'advanced': 'Erfahren (3-5 Jahre)',
+                'expert': 'Experte (> 5 Jahre)'
+            };
+            return experiences[exp] || exp;
+        }
+
+        function getRiskText(risk) {
+            const risks = {
+                'low': 'Niedrig',
+                'medium': 'Mittel',
+                'high': 'Hoch'
+            };
+            return risks[risk] || 'Nicht spezifiziert';
+        }
+
+        function getStopLossText(sl) {
+            const stopLosses = {
+                'percentage': 'Prozentual',
+                'technical': 'Technische Level',
+                'time': 'Zeitbasiert',
+                'mixed': 'Kombiniert'
+            };
+            return stopLosses[sl] || sl;
+        }
+
+        function getTimeframeText(tf) {
+            const timeframes = {
+                'weekly': 'Wöchentlich (0-7 DTE)',
+                'biweekly': 'Zweiwöchentlich (7-14 DTE)',
+                'monthly': 'Monatlich (30-45 DTE)',
+                'quarterly': 'Quartalsweise (60-90 DTE)',
+                'leaps': 'LEAPS (> 365 DTE)'
+            };
+            return timeframes[tf] || tf;
+        }
+
+        function resetForm() {
+            if (confirm('Möchten Sie wirklich alle Eingaben löschen?')) {
+                document.getElementById('tradingPlanForm').reset();
+                riskLevels.forEach(l => l.classList.remove('selected'));
+                selectedRisk = '';
+                document.getElementById('outputSection').style.display = 'none';
+            }
+        }
+
+        function downloadPlan() {
+            alert('Um den Plan als PDF zu speichern, nutzen Sie bitte die Druckfunktion Ihres Browsers und wählen Sie "Als PDF speichern" als Drucker.');
+            window.print();
+        }
+
+        function copyPlan() {
+            const planText = document.getElementById('planContent').innerText;
+            navigator.clipboard.writeText(planText).then(() => {
+                alert('Der Handelsplan wurde in die Zwischenablage kopiert!');
+            }).catch(() => {
+                alert('Fehler beim Kopieren. Bitte markieren Sie den Text manuell und kopieren Sie ihn.');
+            });
+        }
+    </script>
+</body>
+</html>
