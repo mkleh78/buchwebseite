@@ -973,8 +973,8 @@
             </div>
             
             <div class="disclaimer-buttons">
-                <button class="decline-btn" onclick="declineDisclaimer()">Ablehnen und Seite verlassen</button>
-                <button class="accept-btn" onclick="acceptDisclaimer()">Ich verstehe und akzeptiere</button>
+                <button class="decline-btn" id="declineBtn">Ablehnen und Seite verlassen</button>
+                <button class="accept-btn" id="acceptBtn">Ich verstehe und akzeptiere</button>
             </div>
             
             <div class="disclaimer-footer">
@@ -1021,7 +1021,7 @@
                 <h2>🔒 Passwortgeschützter Bereich</h2>
                 <p style="color: #666; margin-bottom: 30px;">Bitte geben Sie das Passwort ein, um auf den Handelsplangenerator zuzugreifen.</p>
                 <input type="password" id="passwordInput" placeholder="Passwort eingeben">
-                <button onclick="checkPassword()" class="btn btn-primary" style="width: 100%;">Zugang freischalten</button>
+                <button id="checkPasswordBtn" class="btn btn-primary" style="width: 100%;">Zugang freischalten</button>
                 <p id="passwordError" style="display: none;">Falsches Passwort. Bitte versuchen Sie es erneut.</p>
             </div>
 
@@ -1289,49 +1289,65 @@
     </footer>
 
     <script>
-        // Check if disclaimer was already accepted
-        window.addEventListener('load', function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if disclaimer was already accepted
             const disclaimerAccepted = sessionStorage.getItem('disclaimerAccepted');
             if (disclaimerAccepted === 'true') {
                 document.getElementById('disclaimerOverlay').style.display = 'none';
-                document.getElementById('passwordInput').focus();
+                setTimeout(() => {
+                    document.getElementById('passwordInput').focus();
+                }, 100);
             }
-        });
 
-        // Disclaimer functions
-        function acceptDisclaimer() {
-            sessionStorage.setItem('disclaimerAccepted', 'true');
-            document.getElementById('disclaimerOverlay').style.display = 'none';
-            document.getElementById('passwordInput').focus();
-        }
-
-        function declineDisclaimer() {
-            alert('Sie müssen den Haftungsausschluss akzeptieren, um dieses Tool nutzen zu können.');
-            window.location.href = 'https://www.google.com';
-        }
-
-        // Password Protection
-        function checkPassword() {
-            const password = document.getElementById('passwordInput').value;
-            const correctPassword = 'Lehleiter';
+            // Disclaimer button event listeners
+            const acceptBtn = document.getElementById('acceptBtn');
+            const declineBtn = document.getElementById('declineBtn');
             
-            if (password === correctPassword) {
-                document.getElementById('passwordSection').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
-                document.getElementById('passwordError').style.display = 'none';
-            } else {
-                document.getElementById('passwordError').style.display = 'block';
-                document.getElementById('passwordInput').value = '';
-                document.getElementById('passwordInput').focus();
+            if (acceptBtn) {
+                acceptBtn.addEventListener('click', function() {
+                    sessionStorage.setItem('disclaimerAccepted', 'true');
+                    document.getElementById('disclaimerOverlay').style.display = 'none';
+                    setTimeout(() => {
+                        document.getElementById('passwordInput').focus();
+                    }, 100);
+                });
             }
-        }
+            
+            if (declineBtn) {
+                declineBtn.addEventListener('click', function() {
+                    alert('Sie müssen den Haftungsausschluss akzeptieren, um dieses Tool nutzen zu können.');
+                    window.location.href = 'https://www.google.com';
+                });
+            }
 
-        // Allow Enter key to submit password
-        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkPassword();
+            // Password button event listener
+            const checkPasswordBtn = document.getElementById('checkPasswordBtn');
+            if (checkPasswordBtn) {
+                checkPasswordBtn.addEventListener('click', function() {
+                    const password = document.getElementById('passwordInput').value;
+                    const correctPassword = 'Lehleiter';
+                    
+                    if (password === correctPassword) {
+                        document.getElementById('passwordSection').style.display = 'none';
+                        document.getElementById('mainContent').style.display = 'block';
+                        document.getElementById('passwordError').style.display = 'none';
+                    } else {
+                        document.getElementById('passwordError').style.display = 'block';
+                        document.getElementById('passwordInput').value = '';
+                        document.getElementById('passwordInput').focus();
+                    }
+                });
             }
-        });
+
+            // Allow Enter key to submit password
+            const passwordInput = document.getElementById('passwordInput');
+            if (passwordInput) {
+                passwordInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        checkPasswordBtn.click();
+                    }
+                });
+            }
         function checkPassword() {
             const password = document.getElementById('passwordInput').value;
             const correctPassword = 'Lehleiter';
