@@ -1,4 +1,16 @@
-<!DOCTYPE html>
+// Get selected strategies
+            const strategies = [];
+            document.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
+                strategies.push(cb.value);
+            });
+
+            // Get selected analysis methods
+            const analysisMethods = [];
+            ['technical', 'fundamental', 'sentiment', 'volatility', 'greeks'].forEach(id => {
+                if (document.getElementById(id).checked) {
+                    analysisMethods.push(document.getElementById(id).value);
+                }
+            });<!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
@@ -651,6 +663,13 @@
             margin-top: 2rem;
         }
         
+        .required-note {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
         /* Mobile Menu */
         .mobile-menu-toggle {
             display: none;
@@ -778,24 +797,100 @@
         }
         
         @media print {
-            body {
-                background: white;
+            @page {
+                size: A4;
+                margin: 20mm;
             }
             
-            header, footer, .form-section, .button-container, .action-buttons, #passwordSection, .disclaimer-overlay {
+            body {
+                background: white;
+                font-size: 11pt;
+                line-height: 1.5;
+                color: black;
+            }
+            
+            header, footer, .form-section, .button-container, .action-buttons, #passwordSection, .disclaimer-overlay, .hero {
                 display: none !important;
+            }
+            
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+            
+            section {
+                padding: 0;
+                border: none;
             }
             
             .output-section {
                 display: block !important;
                 border: none;
-                background: white;
-                box-shadow: none;
-                padding: 0;
+                background: white !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            .output-title {
+                font-size: 24pt;
+                margin-bottom: 20pt;
+                color: black;
+                text-align: center;
+                page-break-after: avoid;
             }
             
             .plan-content {
-                box-shadow: none;
+                box-shadow: none !important;
+                padding: 0 !important;
+                background: white !important;
+            }
+            
+            .plan-section {
+                page-break-inside: avoid;
+                margin-bottom: 15pt;
+                padding-bottom: 10pt;
+                border-bottom: 1pt solid #ddd;
+            }
+            
+            .plan-section h3 {
+                font-size: 14pt;
+                margin-bottom: 8pt;
+                color: black;
+                page-break-after: avoid;
+            }
+            
+            .plan-section p {
+                font-size: 11pt;
+                margin-bottom: 4pt;
+            }
+            
+            .plan-section ul {
+                margin-left: 15pt;
+            }
+            
+            .plan-section li {
+                font-size: 11pt;
+                margin-bottom: 2pt;
+            }
+            
+            /* Spezielle Formatierung für den Warnhinweis */
+            .plan-section[style*="background: #fff3cd"] {
+                border: 2pt solid #ffc107 !important;
+                padding: 10pt !important;
+                background: #fff3cd !important;
+                page-break-inside: avoid;
+            }
+            
+            /* Entferne Farben für bessere Lesbarkeit */
+            strong {
+                font-weight: bold;
+                color: black;
+            }
+            
+            /* Seitenumbrüche für lange Pläne */
+            .plan-section:nth-child(4n) {
+                page-break-after: auto;
             }
         }
     </style>
@@ -911,6 +1006,7 @@
 
             <!-- Main Content (hidden initially) -->
             <div id="mainContent" style="display: none;">
+                <p class="required-note"><span style="color: red;">*</span> Pflichtfelder</p>
                 <form id="tradingPlanForm">
                     <!-- Persönliche Informationen -->
                     <div class="form-section">
@@ -920,15 +1016,15 @@
                         </h2>
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="traderName">Name des Händlers</label>
+                                <label for="traderName">Name des Händlers <span style="color: red;">*</span></label>
                                 <input type="text" id="traderName" required>
                             </div>
                             <div class="form-group">
-                                <label for="accountSize">Kontogröße (€)</label>
-                                <input type="number" id="accountSize" required>
+                                <label for="accountSize">Kontogröße (€) <span style="color: red;">*</span></label>
+                                <input type="number" id="accountSize" min="1000" required>
                             </div>
                             <div class="form-group">
-                                <label for="experience">Erfahrungslevel</label>
+                                <label for="experience">Erfahrungslevel <span style="color: red;">*</span></label>
                                 <select id="experience" required>
                                     <option value="">Bitte wählen</option>
                                     <option value="beginner">Anfänger (< 1 Jahr)</option>
@@ -948,16 +1044,16 @@
                         </h2>
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="monthlyGoal">Monatliches Renditeziel (%)</label>
-                                <input type="number" id="monthlyGoal" step="0.1" required>
+                                <label for="monthlyGoal">Monatliches Renditeziel (%) <span style="color: red;">*</span></label>
+                                <input type="number" id="monthlyGoal" step="0.1" min="0" max="100" required>
                             </div>
                             <div class="form-group">
-                                <label for="yearlyGoal">Jährliches Renditeziel (%)</label>
-                                <input type="number" id="yearlyGoal" step="0.1" required>
+                                <label for="yearlyGoal">Jährliches Renditeziel (%) <span style="color: red;">*</span></label>
+                                <input type="number" id="yearlyGoal" step="0.1" min="0" max="500" required>
                             </div>
                             <div class="form-group">
-                                <label for="maxDrawdown">Maximaler Drawdown (%)</label>
-                                <input type="number" id="maxDrawdown" step="0.1" required>
+                                <label for="maxDrawdown">Maximaler Drawdown (%) <span style="color: red;">*</span></label>
+                                <input type="number" id="maxDrawdown" step="0.1" min="1" max="100" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -974,15 +1070,15 @@
                         </h2>
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="riskPerTrade">Risiko pro Trade (% des Kontos)</label>
-                                <input type="number" id="riskPerTrade" step="0.1" required>
+                                <label for="riskPerTrade">Risiko pro Trade (% des Kontos) <span style="color: red;">*</span></label>
+                                <input type="number" id="riskPerTrade" step="0.1" min="0.1" max="10" required>
                             </div>
                             <div class="form-group">
-                                <label for="maxPositions">Maximale gleichzeitige Positionen</label>
-                                <input type="number" id="maxPositions" required>
+                                <label for="maxPositions">Maximale gleichzeitige Positionen <span style="color: red;">*</span></label>
+                                <input type="number" id="maxPositions" min="1" max="50" required>
                             </div>
                             <div class="form-group">
-                                <label for="stopLoss">Stop-Loss Strategie</label>
+                                <label for="stopLoss">Stop-Loss Strategie <span style="color: red;">*</span></label>
                                 <select id="stopLoss" required>
                                     <option value="">Bitte wählen</option>
                                     <option value="percentage">Prozentual</option>
@@ -993,12 +1089,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Risikotoleranz</label>
+                            <label>Risikotoleranz <span style="color: red;">*</span></label>
                             <div class="risk-indicator">
                                 <div class="risk-level risk-low" data-risk="low">Niedrig</div>
                                 <div class="risk-level risk-medium" data-risk="medium">Mittel</div>
                                 <div class="risk-level risk-high" data-risk="high">Hoch</div>
                             </div>
+                            <input type="hidden" id="riskTolerance" name="riskTolerance" required>
                         </div>
                     </div>
 
@@ -1045,7 +1142,7 @@
                         </div>
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="timeframe">Bevorzugter Zeithorizont</label>
+                                <label for="timeframe">Bevorzugter Zeithorizont <span style="color: red;">*</span></label>
                                 <select id="timeframe" required>
                                     <option value="">Bitte wählen</option>
                                     <option value="weekly">Wöchentlich (0-7 DTE)</option>
@@ -1242,18 +1339,70 @@
                 riskLevels.forEach(l => l.classList.remove('selected'));
                 level.classList.add('selected');
                 selectedRisk = level.dataset.risk;
+                document.getElementById('riskTolerance').value = selectedRisk;
             });
         });
 
         // Form submission
         document.getElementById('tradingPlanForm').addEventListener('submit', (e) => {
             e.preventDefault();
+            
+            // Validate risk tolerance
+            if (!selectedRisk) {
+                alert('Bitte wählen Sie eine Risikotoleranz aus.');
+                return;
+            }
+            
+            // Validate at least one strategy is selected
+            const checkedStrategies = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            if (checkedStrategies === 0) {
+                alert('Bitte wählen Sie mindestens eine Handelsstrategie aus.');
+                return;
+            }
+            
             generateTradingPlan();
         });
 
         function generateTradingPlan() {
-            const formData = new FormData(document.getElementById('tradingPlanForm'));
-            const data = Object.fromEntries(formData.entries());
+            // Get form values
+            const traderName = document.getElementById('traderName').value;
+            const accountSize = document.getElementById('accountSize').value;
+            const experience = document.getElementById('experience').value;
+            const monthlyGoal = document.getElementById('monthlyGoal').value;
+            const yearlyGoal = document.getElementById('yearlyGoal').value;
+            const maxDrawdown = document.getElementById('maxDrawdown').value;
+            const tradingObjective = document.getElementById('tradingObjective').value;
+            const riskPerTrade = document.getElementById('riskPerTrade').value;
+            const maxPositions = document.getElementById('maxPositions').value;
+            const stopLoss = document.getElementById('stopLoss').value;
+            const timeframe = document.getElementById('timeframe').value;
+            const underlyings = document.getElementById('underlyings').value;
+            const indicators = document.getElementById('indicators').value;
+            const tradingHours = document.getElementById('tradingHours').value;
+            const entryRules = document.getElementById('entryRules').value;
+            const exitRules = document.getElementById('exitRules').value;
+            const adjustmentRules = document.getElementById('adjustmentRules').value;
+
+            // Get selected strategies
+            const strategies = [];
+            const strategyCheckboxes = ['coveredCall', 'cashSecuredPut', 'verticalSpread', 'ironCondor', 
+                                       'butterfly', 'straddle', 'calendar', 'diagonal'];
+            strategyCheckboxes.forEach(id => {
+                const checkbox = document.getElementById(id);
+                if (checkbox && checkbox.checked) {
+                    strategies.push(checkbox.value);
+                }
+            });
+
+            // Get selected analysis methods
+            const analysisMethods = [];
+            const analysisCheckboxes = ['technical', 'fundamental', 'sentiment', 'volatility', 'greeks'];
+            analysisCheckboxes.forEach(id => {
+                const checkbox = document.getElementById(id);
+                if (checkbox && checkbox.checked) {
+                    analysisMethods.push(checkbox.value);
+                }
+            });
 
             // Get selected strategies
             const strategies = [];
@@ -1273,50 +1422,50 @@
             const planHTML = `
                 <div class="plan-section">
                     <h3>👤 Händlerprofil</h3>
-                    <p><strong>Name:</strong> ${data.traderName}</p>
-                    <p><strong>Kontogröße:</strong> €${Number(data.accountSize).toLocaleString('de-DE')}</p>
-                    <p><strong>Erfahrungslevel:</strong> ${getExperienceText(data.experience)}</p>
+                    <p><strong>Name:</strong> ${traderName}</p>
+                    <p><strong>Kontogröße:</strong> €${Number(accountSize).toLocaleString('de-DE')}</p>
+                    <p><strong>Erfahrungslevel:</strong> ${getExperienceText(experience)}</p>
                     <p><strong>Risikotoleranz:</strong> ${getRiskText(selectedRisk)}</p>
                 </div>
 
                 <div class="plan-section">
                     <h3>🎯 Handelsziele</h3>
-                    <p><strong>Monatliches Renditeziel:</strong> ${data.monthlyGoal}%</p>
-                    <p><strong>Jährliches Renditeziel:</strong> ${data.yearlyGoal}%</p>
-                    <p><strong>Maximaler Drawdown:</strong> ${data.maxDrawdown}%</p>
-                    <p><strong>Primäres Ziel:</strong> ${data.tradingObjective || 'Nicht spezifiziert'}</p>
+                    <p><strong>Monatliches Renditeziel:</strong> ${monthlyGoal}%</p>
+                    <p><strong>Jährliches Renditeziel:</strong> ${yearlyGoal}%</p>
+                    <p><strong>Maximaler Drawdown:</strong> ${maxDrawdown}%</p>
+                    <p><strong>Primäres Ziel:</strong> ${tradingObjective || 'Nicht spezifiziert'}</p>
                 </div>
 
                 <div class="plan-section">
                     <h3>⚠️ Risikomanagement</h3>
-                    <p><strong>Risiko pro Trade:</strong> ${data.riskPerTrade}% des Kontos (€${(data.accountSize * data.riskPerTrade / 100).toFixed(2)})</p>
-                    <p><strong>Maximale gleichzeitige Positionen:</strong> ${data.maxPositions}</p>
-                    <p><strong>Stop-Loss Strategie:</strong> ${getStopLossText(data.stopLoss)}</p>
-                    <p><strong>Maximales Gesamtrisiko:</strong> ${(data.riskPerTrade * data.maxPositions).toFixed(1)}% des Kontos</p>
+                    <p><strong>Risiko pro Trade:</strong> ${riskPerTrade}% des Kontos (€${(accountSize * riskPerTrade / 100).toFixed(2)})</p>
+                    <p><strong>Maximale gleichzeitige Positionen:</strong> ${maxPositions}</p>
+                    <p><strong>Stop-Loss Strategie:</strong> ${getStopLossText(stopLoss)}</p>
+                    <p><strong>Maximales Gesamtrisiko:</strong> ${(riskPerTrade * maxPositions).toFixed(1)}% des Kontos</p>
                 </div>
 
                 <div class="plan-section">
                     <h3>📈 Handelsstrategien</h3>
                     <p><strong>Bevorzugte Strategien:</strong> ${strategies.join(', ') || 'Keine ausgewählt'}</p>
-                    <p><strong>Zeithorizont:</strong> ${getTimeframeText(data.timeframe)}</p>
-                    <p><strong>Bevorzugte Basiswerte:</strong> ${data.underlyings || 'Nicht spezifiziert'}</p>
+                    <p><strong>Zeithorizont:</strong> ${getTimeframeText(timeframe)}</p>
+                    <p><strong>Bevorzugte Basiswerte:</strong> ${underlyings || 'Nicht spezifiziert'}</p>
                 </div>
 
                 <div class="plan-section">
                     <h3>📊 Marktanalyse</h3>
                     <p><strong>Analysemethoden:</strong> ${analysisMethods.join(', ') || 'Keine ausgewählt'}</p>
-                    <p><strong>Hauptindikatoren:</strong> ${data.indicators || 'Nicht spezifiziert'}</p>
-                    <p><strong>Handelszeiten:</strong> ${data.tradingHours || 'Nicht spezifiziert'}</p>
+                    <p><strong>Hauptindikatoren:</strong> ${indicators || 'Nicht spezifiziert'}</p>
+                    <p><strong>Handelszeiten:</strong> ${tradingHours || 'Nicht spezifiziert'}</p>
                 </div>
 
                 <div class="plan-section">
                     <h3>📋 Handelsregeln</h3>
                     <p><strong>Einstiegsregeln:</strong></p>
-                    <p>${data.entryRules || 'Nicht spezifiziert'}</p>
+                    <p>${entryRules || 'Nicht spezifiziert'}</p>
                     <p><strong>Ausstiegsregeln:</strong></p>
-                    <p>${data.exitRules || 'Nicht spezifiziert'}</p>
+                    <p>${exitRules || 'Nicht spezifiziert'}</p>
                     <p><strong>Anpassungsregeln:</strong></p>
-                    <p>${data.adjustmentRules || 'Nicht spezifiziert'}</p>
+                    <p>${adjustmentRules || 'Nicht spezifiziert'}</p>
                 </div>
 
                 <div class="plan-section">
@@ -1338,7 +1487,7 @@
 
                 <div class="plan-section">
                     <h3>🚨 Notfallplan</h3>
-                    <p>Bei Erreichen des maximalen Drawdowns von ${data.maxDrawdown}%:</p>
+                    <p>Bei Erreichen des maximalen Drawdowns von ${maxDrawdown}%:</p>
                     <ul>
                         <li>Sofortiger Handelsstopp</li>
                         <li>Analyse aller verlustbringenden Trades</li>
@@ -1348,8 +1497,16 @@
                 </div>
 
                 <div class="plan-section">
-                    <p><strong>Erstellt am:</strong> ${new Date().toLocaleDateString('de-DE')}</p>
-                    <p><strong>Nächste Überprüfung:</strong> ${new Date(Date.now() + 30*24*60*60*1000).toLocaleDateString('de-DE')}</p>
+                    <p><strong>Erstellt am:</strong> ${new Date().toLocaleDateString('de-DE', { 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                    })}</p>
+                    <p><strong>Nächste Überprüfung:</strong> ${new Date(Date.now() + 30*24*60*60*1000).toLocaleDateString('de-DE', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    })}</p>
                 </div>
 
                 <div class="plan-section" style="background: #fff3cd; border: 2px solid #ffc107; padding: 20px; border-radius: 10px;">
