@@ -1,4 +1,25 @@
-// Get selected strategies
+// Debug: Log values to console
+            console.log('Form Values:', {
+                traderName,
+                accountSize,
+                experience,
+                monthlyGoal,
+                yearlyGoal,
+                maxDrawdown,
+                riskPerTrade,
+                maxPositions,
+                stopLoss,
+                timeframe,
+                strategies,
+                analysisMethods
+            });
+
+            // Validate that all required values are present
+            if (!traderName || !accountSize || !experience || !monthlyGoal || !yearlyGoal || 
+                !maxDrawdown || !riskPerTrade || !maxPositions || !stopLoss || !timeframe) {
+                alert('Bitte füllen Sie alle Pflichtfelder aus.');
+                return;
+            }            // Get selected strategies
             const strategies = [];
             document.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
                 strategies.push(cb.value);
@@ -1290,6 +1311,27 @@
         }
 
         // Password Protection
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const correctPassword = 'Lehleiter';
+            
+            if (password === correctPassword) {
+                document.getElementById('passwordSection').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                document.getElementById('passwordError').style.display = 'none';
+            } else {
+                document.getElementById('passwordError').style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+            }
+        }
+
+        // Allow Enter key to submit password
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
         function checkPassword() {
             const password = document.getElementById('passwordInput').value;
             const correctPassword = 'Lehleiter';
